@@ -1,15 +1,26 @@
-import React from 'react';
-// import ContextProvider from './context';
-import Layout from './userinterfaces/components/Layout/Layout';
-import Messages from './userinterfaces/pages/Messages/Messages';
-import { recipient } from './services/constants';
-import './services/globalstyles/index.css';
+import React, { Suspense } from 'react';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import StoreProvider from './store';
+import { initialState, storeReducers } from './store';
+import Messages from './userinterface/pages/Messages/Messages';
+import GlobalCSS from './services/globalstyles/index';
 
 function App() {
   return (
-    <Layout>
-      <Messages recipient={recipient} />
-    </Layout>
+    <Suspense fallback="loading">
+      <StoreProvider initialState={initialState} reducer={storeReducers}>
+        <GlobalCSS />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Messages />} />
+            <Route path="/realtors" element={<Messages />}>
+              <Route path="/realtors:id" element={<Messages />} />
+              <Route path="/realtors/:id/messages/:id" element={<Messages />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </StoreProvider>
+    </Suspense>
   );
 }
 

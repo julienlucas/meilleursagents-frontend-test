@@ -1,7 +1,30 @@
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-});
+export default defineConfig(() => {
+  const env = loadEnv(
+    'mock',
+    process.cwd(),
+    ''
+  )
+
+  const processEnvValues = {
+    'process.env': Object.entries(env).reduce(
+      (prev, [key, val]) => {
+        return {
+          ...prev,
+          [key]: val,
+        }
+      },
+      {},
+    )
+  }
+
+  return {
+    plugins: [react()],
+    define: processEnvValues,
+    server: {
+      origin: "http://localhost:3000/realtors"
+    }
+  }
+})
