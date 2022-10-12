@@ -3,14 +3,14 @@ import MailList from '../../components/MailList/MailList';
 import { useParams, useNavigate } from 'react-router-dom';
 import { SMessage, SMessageHeader, SMessageBody, SMailContainer } from './style';
 import Layout from '../../components/Layout/Layout';
-import { getSelectedMessageUC, setMessageReadedUC } from '../../../domain/usecases/messages.usecase'
+import { getSelectedMessageUC, setMessageReadedUC, setDefaultSelectedMessageUC } from '../../../domain/usecases/messages.usecase'
 import { Store } from '../../../domain/entities/store.interface';
 import { useStore } from '../../../store';
 
 const Message: React.FC = () => {
   const [state, dispatch] = useStore<Store>({});
   const { selectedMessage } = state;
-  const { messageId } = useParams();
+  const { realtorId, messageId } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,17 +18,20 @@ const Message: React.FC = () => {
       getSelectedMessageUC(state.selectedRealtorId, messageId, dispatch);
       setMessageReadedUC(state.selectedRealtorId, messageId, dispatch);
     }
-  }, [messageId]);
+    if (realtorId && !messageId) {
+      setDefaultSelectedMessageUC(realtorId, dispatch);
+    }
+  }, [realtorId, messageId]);
 
   useEffect(() => {
     const setDefaultMailURL = () => {
       if (!messageId && state.messages.length > 0) {
-        navigate(`/realtors/${state.selectedRealtorId}/messages/${state.messages[0].id}`)
+        navigate(`/realtors/${state.selectedRealtorId}/messages/${state.selectedMessageId}`)
       }
     };
 
     setDefaultMailURL();
-  }, [state.messages]);
+  }, [state.selectedMessageId]);
 
   return (
       <Layout>
