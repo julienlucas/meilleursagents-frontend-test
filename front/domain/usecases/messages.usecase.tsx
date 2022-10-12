@@ -42,11 +42,11 @@ export async function setDefaultSelectedMessageUC(realtorId: string, dispatch: R
   }
 }
 
-export async function setMessageStatusAsReadedUC(realtorId: string, messageId: string, dispatch) {
+export async function setMessageReadedUC(realtorId: string, messageId: string, dispatch) {
   const messagesGateway = MessagesGateway.getInstance();
 
   try {
-    await messagesGateway.setMessageStatusAsReaded(realtorId, messageId);
+    await messagesGateway.setMessageReaded(realtorId, messageId);
     await getMessagesUC(realtorId,dispatch);
 
     getRealtorsUC(realtorId, dispatch);

@@ -3,7 +3,7 @@ import MailList from '../../components/MailList/MailList';
 import { useParams, useNavigate } from 'react-router-dom';
 import { SMessage, SMessageHeader, SMessageBody, SMailContainer } from './style';
 import Layout from '../../components/Layout/Layout';
-import { getSelectedMessageUC, setMessageStatusAsReadedUC } from '../../../domain/usecases/messages.usecase'
+import { getSelectedMessageUC, setMessageReadedUC } from '../../../domain/usecases/messages.usecase'
 import { Store } from '../../../domain/entities/store.interface';
 import { useStore } from '../../../store';
 
@@ -16,7 +16,7 @@ const Message: React.FC = () => {
   useEffect(() => {
     if (messageId) {
       getSelectedMessageUC(state.selectedRealtorId, messageId, dispatch);
-      setMessageStatusAsReadedUC(state.selectedRealtorId, messageId, dispatch);
+      setMessageReadedUC(state.selectedRealtorId, messageId, dispatch);
     }
   }, [messageId]);
 

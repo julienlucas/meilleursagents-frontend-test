@@ -2,9 +2,9 @@ import React, { useEffect, ChangeEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { SSwitchRealtors } from './style';
 import { Store } from '../../../domain/entities/store.interface';
-import { getRealtorsUC } from '../../../domain/usecases/realtors.usecase'
+import { getRealtorsUC, setSelectedRealtorUC } from '../../../domain/usecases/realtors.usecase'
 import { setDefaultSelectedMessageUC } from '../../../domain/usecases/messages.usecase'
-import { useStore, setSelectedRealtorId } from '../../../store';
+import { useStore } from '../../../store';
 
 const SwitchRealtors: React.FC = () => {
   const [state, dispatch] = useStore<Store>({});
@@ -19,8 +19,7 @@ const SwitchRealtors: React.FC = () => {
 
   useEffect(() => {
     if (realtorId && (realtorId !== state.selectedRealtorId)) {
-      dispatch(setSelectedRealtorId(realtorId));
-      localStorage.setItem('selectedRealtorId', realtorId.toString());
+      setSelectedRealtorUC(realtorId, dispatch);
     }
   }, [realtorId]);
 

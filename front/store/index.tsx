@@ -16,7 +16,6 @@ export const initialState = {
   unreadCount: 0
 };
 
-// const StoreContext = createContext();
 const StoreContext = createContext<{
   state: Store;
   dispatch: React.Dispatch<any>;

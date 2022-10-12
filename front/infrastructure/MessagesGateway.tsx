@@ -24,7 +24,7 @@ export default class MessagesGateway extends SingletonMixin() {
     }
   }
 
-  setMessageStatusAsReaded(realtorId: string, messageId: string): void {
+  setMessageReaded(realtorId: string, messageId: string): void {
     try {
       fetch(`${process.env.PUBLIC_API_ENTRYPOINT!}${realtorId}/messages/${messageId}`, {
         method: "PATCH",
