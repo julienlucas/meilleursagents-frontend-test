@@ -1,36 +1,63 @@
-import React from 'react';
-import AsideMailsList from '../../components/AsideMailsList/AsideMailsList';
-import { SMessages, SMessage, SMailContainer } from './style';
+import React, { useEffect } from 'react';
+import MailList from '../../components/MailList/MailList';
+import { useParams, useNavigate } from 'react-router-dom';
+import { SMessages, SMessage, SHeaderMessage, SMailContainer } from './style';
 import Layout from '../../components/Layout/Layout';
-import HeaderMail from '../../components/HeaderMail/HeaderMail';
-import { Message } from '../../../domain/entities/message.interface';
-import { z } from 'zod';
+import { getSelectedMessage, setDefaultSelectedMessage } from '../../../domain/usecases/messages.usecase'
+import { Store } from '../../../domain/entities/store.interface';
+import { useStore } from '../../../store';
 
-const Messages = () => {
+const Messages: React.FC = () => {
+  const [state, dispatch] = useStore<Store>({});
+  const { selectedMessage } = state;
+  const { messageId } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (messageId && (messageId !== state.selectedMessageId)) {
+      getSelectedMessage(state.selectedRealtorId, messageId, dispatch)
+    }
+  }, [messageId]);
+
+  useEffect(() => {
+    if (!messageId && state.messages.length > 0) {
+      navigate(`/realtors/${state.selectedRealtorId}/messages/${state.messages[0].id}`)
+    }
+  }, [state.messages])
+
   return (
       <Layout>
         <SMessages>
-          <AsideMailsList />
-
+          <MailList />
           <SMailContainer>
-            <HeaderMail />
+            <SHeaderMessage>
+              {selectedMessage?.contact?.firstname && (
+                <h3>{selectedMessage?.contact?.firstname} {selectedMessage?.contact?.lastname}</h3>
+              )}
+              <ul>
+                {selectedMessage?.contact?.email && (
+                  <li>
+                    Email <span>{selectedMessage?.contact?.email}</span>
+                  </li>
+                )}
+                {selectedMessage?.contact?.phone && (
+                  <li>
+                    Phone <span>{selectedMessage?.contact?.phone}</span>
+                  </li>
+                )}
+              </ul>
+            </SHeaderMessage>
             <SMessage>
-              <p>fdsfdsfsdfsdfds</p>
+              <h3>
+                {selectedMessage?.contact?.firstname}
+                {selectedMessage?.contact?.lastname}
+              </h3>
+
+              <p>{selectedMessage?.date}</p>
+              {selectedMessage?.body && (
+                <div dangerouslySetInnerHTML={{__html: selectedMessage?.body}} />
+              )}
             </SMessage>
-
-            {/* <section>
-              {recipient?.firstName && (
-                <h3>
-                  {recipient?.firstName}
-                  {recipient?.lastName}
-                </h3>
-              )}
-
-              <p>{recipient.date}</p>
-              {recipient?.message && (
-                <div dangerouslySetInnerHTML={{__html: recipient.message}} />
-              )}
-            </section> */}
           </SMailContainer>
         </SMessages>
       </Layout>

@@ -14,8 +14,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Messages />} />
             <Route path="/realtors" element={<Messages />}>
-              <Route path="/realtors:id" element={<Messages />} />
-              <Route path="/realtors/:id/messages/:id" element={<Messages />} />
+              <Route path="/realtors:realtorId" element={<Messages />} />
+              <Route path="/realtors/:realtorId/messages/:messageId" element={<Messages />} />
             </Route>
           </Routes>
         </BrowserRouter>

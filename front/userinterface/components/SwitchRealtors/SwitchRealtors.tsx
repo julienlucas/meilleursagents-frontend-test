@@ -1,28 +1,41 @@
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, ChangeEvent } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { SSwitchRealtors } from './style';
 import { Store } from '../../../domain/entities/store.interface';
 import { getRealtors } from '../../../domain/usecases/realtors.usecase'
-import { useStore } from '../../../store';
+import { setDefaultSelectedMessage } from '../../../domain/usecases/messages.usecase'
+import { useStore, setSelectedRealtorId } from '../../../store';
 
-const SwitchRealtors = (props) => {
+const SwitchRealtors: React.FC = () => {
   const [state, dispatch] = useStore<Store>({});
-  const { id } = useParams();
+  const navigate = useNavigate();
+  const { realtorId } = useParams();
 
   useEffect(() => {
-    getRealtors(dispatch)
+    getRealtors(dispatch);
   }, []);
 
   useEffect(() => {
-    if (id) {
-      console.log(id)
+    if (realtorId && (realtorId !== state.selectedRealtorId)) {
+      dispatch(setSelectedRealtorId(realtorId));
+      localStorage.setItem('selectedRealtorId', realtorId.toString());
     }
-  }, [id])
+  }, [realtorId]);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    navigate(`/realtors/${value}`);
+    setDefaultSelectedMessage(value, dispatch);
+  };
+
+  useEffect(() => {
+    console.log(state)
+  }, [state])
 
   return (
-    <SSwitchRealtors>
+    <SSwitchRealtors onChange={handleChange} value={state.selectedRealtorId}>
       {state.realtors?.map(realtor =>
-        <option key={realtor.id}>{realtor.name}</option>
+        <option key={realtor.id} value={realtor.id}>{realtor.name}</option>
       )}
     </SSwitchRealtors>
   )

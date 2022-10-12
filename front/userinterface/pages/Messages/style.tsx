@@ -19,3 +19,8 @@ export const SMessage = styled.div`
   background: white;
 `;
 
+export const SHeaderMessage = styled.section`
+  padding: 25px 20px;
+  background: white;
+`;
+

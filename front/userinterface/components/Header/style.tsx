@@ -24,7 +24,7 @@ export const SLogo = styled.div`
   align-items: center;
 `;
 
-export const SSwitchRealtors = styled.div`
+export const SRightHeader = styled.div`
   align-items: center;
 
   select {

@@ -2,14 +2,14 @@ import RealtorsGateway from '../../infrastructure/RealtorsGateway';
 import { Realtor } from '../entities/realtor.interface';
 import { setRealtors } from '../../store';
 
-export async function getRealtors(dispatch: any): Promise<Realtor> {
+export async function getRealtors(dispatch: React.Dispatch<any>): Promise<Realtor> {
   const realtorsGateway = RealtorsGateway.getInstance();
 
   try {
-    const data = await realtorsGateway.getRealtors();
+    const realtors = await realtorsGateway.getRealtors();
 
-    dispatch(setRealtors(data));
-    return data;
+    dispatch(setRealtors(realtors));
+    return realtors;
   } catch (error) {
     console.error(error);
     throw error;

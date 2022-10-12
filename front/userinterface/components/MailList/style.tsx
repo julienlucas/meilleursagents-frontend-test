@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { theme } from '../../../services/theme';
 import iconMailOpen from '../../../../assets/icon-mail-open.svg';
 
-export const SAsideMailsList = styled.aside`
+export const SMailList = styled.aside`
   position: relative;
   width: 100%;
   max-width: 375px;
@@ -20,6 +20,11 @@ export const SMail = styled.aside`
   background-image: url(${iconMailOpen});
   background-position: 10px 20px;
   background-repeat: no-repeat;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${theme.lightGrey100};
+  }
 
   * {
     margin: 0;

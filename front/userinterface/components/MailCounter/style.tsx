@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { theme } from '../../../services/theme';
 
-export const SMailBox = styled.div`
+export const SMailCounter = styled.div`
   position: relative;
   width: auto;
   height: 31px;

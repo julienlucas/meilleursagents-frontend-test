@@ -3,5 +3,8 @@ import { Message } from './message.interface';
 
 export interface Store {
   messages: Message[],
-  realtors: Realtor[]
-}
+  realtors: Realtor[],
+  selectedRealtorId: string,
+  selectedMessageId: string,
+  selectedMessage: Message | null
+};
