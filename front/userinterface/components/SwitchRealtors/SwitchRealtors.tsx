@@ -12,8 +12,10 @@ const SwitchRealtors: React.FC = () => {
   const { realtorId } = useParams();
 
   useEffect(() => {
-    getRealtorsUC(dispatch);
-  }, []);
+    if (realtorId) {
+      getRealtorsUC(realtorId, dispatch);
+    }
+  }, [realtorId]);
 
   useEffect(() => {
     if (realtorId && (realtorId !== state.selectedRealtorId)) {

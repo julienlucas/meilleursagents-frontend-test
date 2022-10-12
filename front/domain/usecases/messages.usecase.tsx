@@ -1,6 +1,7 @@
 import MessagesGateway from '../../infrastructure/MessagesGateway';
+import { getRealtorsUC } from '../../domain/usecases/realtors.usecase';
 import { Message } from '../entities/message.interface';
-import { setMessages, setSelectedMessage, setUnreadCount } from '../../store';
+import { setMessages, setSelectedMessage } from '../../store';
 
 export async function getMessagesUC(realtorId: string, dispatch: React.Dispatch<any>): Promise<Message> {
   const messagesGateway = MessagesGateway.getInstance();
@@ -31,9 +32,14 @@ export async function getSelectedMessageUC(realtorId: string, messageId: string,
 }
 
 export async function setDefaultSelectedMessageUC(realtorId: string, dispatch: React.Dispatch<any>) {
-  const messages = await getMessages(realtorId, dispatch);
+  try {
+    const messages = await getMessagesUC(realtorId, dispatch);
 
-  dispatch(setSelectedMessage(messages[0]));
+    dispatch(setSelectedMessage(messages[0]));
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 export async function setMessageStatusAsReadedUC(realtorId: string, messageId: string, dispatch) {
@@ -41,18 +47,9 @@ export async function setMessageStatusAsReadedUC(realtorId: string, messageId: s
 
   try {
     await messagesGateway.setMessageStatusAsReaded(realtorId, messageId);
-    getMessagesUC(realtorId,dispatch);
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
+    await getMessagesUC(realtorId,dispatch);
 
-export async function setUnreadCountUC(messages, dispatch: React.Dispatch<any>) {
-  try {
-    const count = messages.filter(message => message.read === false).length;
-
-    dispatch(setUnreadCount(count));
+    getRealtorsUC(realtorId, dispatch);
   } catch (error) {
     console.error(error);
     throw error;

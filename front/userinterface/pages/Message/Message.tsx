@@ -14,24 +14,21 @@ const Message: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (messageId && (messageId !== state.selectedMessageId)) {
-      getSelectedMessageUC(state.selectedRealtorId, messageId, dispatch)
+    if (messageId) {
+      getSelectedMessageUC(state.selectedRealtorId, messageId, dispatch);
+      setMessageStatusAsReadedUC(state.selectedRealtorId, messageId, dispatch);
     }
   }, [messageId]);
 
   useEffect(() => {
-    if (!messageId && state.messages.length > 0) {
-      navigate(`/realtors/${state.selectedRealtorId}/messages/${state.messages[0].id}`)
-    }
-  }, [state.messages])
+    const setDefaultMailURL = () => {
+      if (!messageId && state.messages.length > 0) {
+        navigate(`/realtors/${state.selectedRealtorId}/messages/${state.messages[0].id}`)
+      }
+    };
 
-  useEffect(() => {
-    const checkIfMessageReaded = () => messageId && state.selectedMessageId;
-
-    if (checkIfMessageReaded() && messageId) {
-      setMessageStatusAsReadedUC(state.selectedRealtorId, messageId, dispatch);
-    }
-  }, [messageId])
+    setDefaultMailURL();
+  }, [state.messages]);
 
   return (
       <Layout>
