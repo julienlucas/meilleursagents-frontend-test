@@ -76,7 +76,6 @@ export const storeReducers = (state = initialState, action) => {
     };
   }
   if (action.type === SET_UNREAD_COUNT) {
-    console.log(state)
     return {
       ...state,
       unreadCount: action.unreadCount

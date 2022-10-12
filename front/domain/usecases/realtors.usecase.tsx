@@ -9,8 +9,6 @@ export async function getRealtorsUC(realtorId: string, dispatch: React.Dispatch<
     const realtors = await realtorsGateway.getRealtors();
     const count = realtors.filter(realtor => realtor.id === Number(realtorId))[0].unread_messages;
 
-    console.log(count)
-
     dispatch(setRealtors(realtors));
     dispatch(setUnreadCount(count));
     return realtors;
