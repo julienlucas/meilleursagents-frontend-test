@@ -15,6 +15,10 @@ export const SHeader = styled.header`
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+
+    &:nth-child(2) {
+      justify-content: flex-end;
+    }
   }
 `;
 
@@ -28,7 +32,6 @@ export const SRightHeader = styled.div`
   align-items: center;
 
   select {
-    position: relative;
     margin-left: 20px;
   }
 `;

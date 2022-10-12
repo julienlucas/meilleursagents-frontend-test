@@ -5,12 +5,15 @@ export const SET_MESSAGES = 'SET_MESSAGES';
 export const SET_REALTORS = 'SET_REALTORS';
 export const SET_SELECTED_MESSAGE = 'SET_SELECTED_MESSAGE';
 export const SET_SELECTED_REALTOR_ID = 'SET_SELECTED_REALTOR_ID';
+export const SET_UNREAD_COUNT = 'SET_UNREAD_COUNT';
+
 export const initialState = {
   realtors: [],
   messages: [],
   selectedRealtorId: localStorage.getItem('selectedRealtorId') || "",
   selectedMessageId: localStorage.getItem('selectedMessageId') || "",
-  selectedMessage: null
+  selectedMessage: null,
+  unreadCount: 0
 };
 
 // const StoreContext = createContext();
@@ -41,6 +44,10 @@ export const setSelectedMessage = (selectedMessage) => ({
   type: SET_SELECTED_MESSAGE,
   selectedMessage,
 });
+export const setUnreadCount = (unreadCount) => ({
+  type: SET_UNREAD_COUNT,
+  unreadCount,
+});
 
 export const storeReducers = (state = initialState, action) => {
   if (action.type === SET_MESSAGES) {
@@ -66,6 +73,12 @@ export const storeReducers = (state = initialState, action) => {
       ...state,
       selectedMessage: action.selectedMessage,
       selectedMessageId: action.selectedMessage.id.toString(),
+    };
+  }
+  if (action.type === SET_UNREAD_COUNT) {
+    return {
+      ...state,
+      unreadCount: action.unreadCount
     };
   }
 };

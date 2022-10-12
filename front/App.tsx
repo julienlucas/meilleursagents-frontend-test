@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import StoreProvider from './store';
 import { initialState, storeReducers } from './store';
-import Messages from './userinterface/pages/Messages/Messages';
+import Message from './userinterface/pages/Message/Message';
 import GlobalCSS from './services/globalstyles/index';
 
 function App() {
@@ -12,10 +12,10 @@ function App() {
         <GlobalCSS />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Messages />} />
-            <Route path="/realtors" element={<Messages />}>
-              <Route path="/realtors:realtorId" element={<Messages />} />
-              <Route path="/realtors/:realtorId/messages/:messageId" element={<Messages />} />
+            <Route path="/" element={<Message />} />
+            <Route path="/realtors" element={<Message />}>
+              <Route path="/realtors:realtorId" element={<Message />} />
+              <Route path="/realtors/:realtorId/messages/:messageId" element={<Message />} />
             </Route>
           </Routes>
         </BrowserRouter>

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Store } from '../../../domain/entities/store.interface';
-import { getMessages } from '../../../domain/usecases/messages.usecase'
+import { getMessagesUC } from '../../../domain/usecases/messages.usecase'
 import { getFomatedDate } from '../../../services/helpers'
 import { SMailList, SMail } from './style';
 import { useStore } from '../../../store';
@@ -13,7 +13,7 @@ const MailList = () => {
 
   useEffect(() => {
     if (selectedRealtorId) {
-      getMessages(selectedRealtorId, dispatch);
+      getMessagesUC(selectedRealtorId, dispatch);
     }
   }, [selectedRealtorId]);
 

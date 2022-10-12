@@ -2,7 +2,7 @@ import RealtorsGateway from '../../infrastructure/RealtorsGateway';
 import { Realtor } from '../entities/realtor.interface';
 import { setRealtors } from '../../store';
 
-export async function getRealtors(dispatch: React.Dispatch<any>): Promise<Realtor> {
+export async function getRealtorsUC(dispatch: React.Dispatch<any>): Promise<Realtor> {
   const realtorsGateway = RealtorsGateway.getInstance();
 
   try {

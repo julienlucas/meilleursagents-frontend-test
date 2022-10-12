@@ -1,8 +1,8 @@
 import React from 'react';
-import MailCounter from '../MailCounter/MailCounter';
+import ButtonUnreadCounter from '../ButtonUnreadCounter/ButtonUnreadCounter';
 import SwitchRealtors from '../SwitchRealtors/SwitchRealtors';
-import LogoAviv from '../../../../images/logo-aviv.png';
 import { SHeader, SLogo, SRightHeader } from './style';
+const LogoAviv = new URL('../../../../images/logo-aviv.png', import.meta.url).href
 
 const Header: React.FC = () => {
   return (
@@ -11,7 +11,7 @@ const Header: React.FC = () => {
         <img src={LogoAviv} title="" alt="" />
       </SLogo>
       <SRightHeader>
-        <MailCounter />
+        <ButtonUnreadCounter />
         <SwitchRealtors />
       </SRightHeader>
     </SHeader>

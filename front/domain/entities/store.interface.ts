@@ -6,5 +6,6 @@ export interface Store {
   realtors: Realtor[],
   selectedRealtorId: string,
   selectedMessageId: string,
-  selectedMessage: Message | null
+  selectedMessage: Message | null,
+  unreadCount: number
 };

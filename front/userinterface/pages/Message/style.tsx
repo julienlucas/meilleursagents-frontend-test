@@ -1,10 +1,8 @@
 import styled from 'styled-components';
-import { theme } from '../../../services/theme';
 
-export const SMessages = styled.main`
+export const SMessage = styled.main`
   display: flex;
   width: 100%;
-  background: red;
 `;
 
 export const SMailContainer = styled.div`
@@ -13,14 +11,13 @@ export const SMailContainer = styled.div`
   min-width: calc(100% - 375px);
 `;
 
-export const SMessage = styled.div`
+export const SMessageHeader = styled.section`
+  padding: 25px 20px;
+  background: white;
+`;
+
+export const SMessageBody = styled.div`
   margin: 30px 0;
   padding: 25px 20px;
   background: white;
 `;
-
-export const SHeaderMessage = styled.section`
-  padding: 25px 20px;
-  background: white;
-`;
-

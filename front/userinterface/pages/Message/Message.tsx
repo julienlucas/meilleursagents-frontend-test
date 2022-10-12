@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import MailList from '../../components/MailList/MailList';
 import { useParams, useNavigate } from 'react-router-dom';
-import { SMessages, SMessage, SHeaderMessage, SMailContainer } from './style';
+import { SMessage, SMessageHeader, SMessageBody, SMailContainer } from './style';
 import Layout from '../../components/Layout/Layout';
-import { getSelectedMessage, setDefaultSelectedMessage } from '../../../domain/usecases/messages.usecase'
+import { getSelectedMessageUC, setMessageStatusAsReadedUC } from '../../../domain/usecases/messages.usecase'
 import { Store } from '../../../domain/entities/store.interface';
 import { useStore } from '../../../store';
 
-const Messages: React.FC = () => {
+const Message: React.FC = () => {
   const [state, dispatch] = useStore<Store>({});
   const { selectedMessage } = state;
   const { messageId } = useParams();
@@ -15,7 +15,7 @@ const Messages: React.FC = () => {
 
   useEffect(() => {
     if (messageId && (messageId !== state.selectedMessageId)) {
-      getSelectedMessage(state.selectedRealtorId, messageId, dispatch)
+      getSelectedMessageUC(state.selectedRealtorId, messageId, dispatch)
     }
   }, [messageId]);
 
@@ -25,12 +25,20 @@ const Messages: React.FC = () => {
     }
   }, [state.messages])
 
+  useEffect(() => {
+    const checkIfMessageReaded = () => messageId && state.selectedMessageId;
+
+    if (checkIfMessageReaded() && messageId) {
+      setMessageStatusAsReadedUC(state.selectedRealtorId, messageId, dispatch);
+    }
+  }, [messageId])
+
   return (
       <Layout>
-        <SMessages>
+        <SMessage>
           <MailList />
           <SMailContainer>
-            <SHeaderMessage>
+            <SMessageHeader>
               {selectedMessage?.contact?.firstname && (
                 <h3>{selectedMessage?.contact?.firstname} {selectedMessage?.contact?.lastname}</h3>
               )}
@@ -46,8 +54,8 @@ const Messages: React.FC = () => {
                   </li>
                 )}
               </ul>
-            </SHeaderMessage>
-            <SMessage>
+            </SMessageHeader>
+            <SMessageBody>
               <h3>
                 {selectedMessage?.contact?.firstname}
                 {selectedMessage?.contact?.lastname}
@@ -57,11 +65,11 @@ const Messages: React.FC = () => {
               {selectedMessage?.body && (
                 <div dangerouslySetInnerHTML={{__html: selectedMessage?.body}} />
               )}
-            </SMessage>
+            </SMessageBody>
           </SMailContainer>
-        </SMessages>
+        </SMessage>
       </Layout>
   );
 };
 
-export default Messages;
+export default Message;
