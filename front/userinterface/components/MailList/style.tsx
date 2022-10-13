@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { theme } from '../../../services/theme';
 const iconMailOpen = new URL('../../../../assets/icon-mail-open.svg', import.meta.url).href;
+const iconMail = new URL('../../../../assets/icon-mail.svg', import.meta.url).href;
 const iconPhone = new URL('../../../../assets/icon-phone.svg', import.meta.url).href;
 
 export const SMailList = styled.aside`
@@ -13,6 +14,13 @@ export const SMailList = styled.aside`
   border-right: 2px solid ${theme.lightGrey100};
   overflow-Y: scroll;
   z-index: 1;
+
+  @media (max-width: 768px) {
+    max-width: 275px;
+  }
+  @media (max-width: 580px) {
+    max-width: 100%;
+  }
 `;
 
 export const SSms = styled.div`
@@ -28,12 +36,16 @@ export const SSms = styled.div`
   color: ${props => props.readStatus ? theme.darkGrey : "black"};
 
   &:hover {
-    background-color: ${theme.lightGrey100};
+    background-color: ${theme.lightGrey};
   }
 
   * {
     margin: 0;
     padding: 0;
+  }
+
+  .body {
+    color: ${theme.darkGrey};
   }
 
   .date {
@@ -54,19 +66,29 @@ export const SMail = styled.div`
   height: 100%;
   padding: 20px 20px 20px 40px;
   border-bottom: 2px solid ${theme.lightGrey100};
-  background-image: url(${iconMailOpen});
-  background-position: 10px 20px;
-  background-repeat: no-repeat;
   cursor: pointer;
   color: ${props => props.readStatus ? theme.darkGrey : "black"};
 
+  ${({ readStatus }) =>
+    readStatus ? `
+      background: url(${iconMailOpen}) no-repeat;
+      background-position: 10px 20px;
+    ` : `
+      background: url(${iconMail}) no-repeat;
+      background-position: 10px 22px;
+    `}
+
   &:hover {
-    background-color: ${theme.lightGrey100};
+    background-color: ${theme.lightGrey};
   }
 
   * {
     margin: 0;
     padding: 0;
+  }
+
+  .body {
+    color: ${theme.darkGrey};
   }
 
   .date {

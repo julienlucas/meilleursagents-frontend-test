@@ -5,7 +5,7 @@ export const SHeader = styled.header`
   display: flex;
   width: 100%;
   height: 60px;
-  box-shadow: 0px 4px 2px -2px #979797;
+  box-shadow: 0px 2px 8px 0px #dcdcdc;
   background: white;
   z-index: 9;
 
@@ -20,12 +20,16 @@ export const SHeader = styled.header`
       justify-content: flex-end;
     }
   }
+
+  @media (max-width: 580px) {
+  }
 `;
 
 export const SLogo = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  max-width: 110px;
 `;
 
 export const SRightHeader = styled.div`
@@ -33,5 +37,9 @@ export const SRightHeader = styled.div`
 
   select {
     margin-left: 20px;
+
+    @media (max-width: 580px) {
+      margin-left: 7px;
+    }
   }
 `;

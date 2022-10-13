@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
+import { theme } from '../theme';
 
 export default createGlobalStyle`
   body {
@@ -15,9 +16,13 @@ export default createGlobalStyle`
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   }
 
+  a {
+    color: ${theme.purple};
+    text-decoration: none;
+  }
+
   p {
-    margin: 20px 0px;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   h1,
@@ -26,10 +31,18 @@ export default createGlobalStyle`
   h4,
   h5,
   h6 {
+    padding: 0;
     margin: 0;
   }
 
+  h2 {
+    position: relative;
+    margin-bottom: -10px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
   h3 {
-    font-size: 16px;
+    font-size: 18px;
   }
 `

@@ -1,4 +1,5 @@
 export interface Message {
+  [key: string]: any;
   body?: string
   contact: {
     email: string,

@@ -8,6 +8,7 @@ export async function getMessagesUC(realtorId: string, dispatch: React.Dispatch<
 
   try {
     const messages = await messagesGateway.getMessages(realtorId);
+    messages.sort((a: Message ,b: Message) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
     dispatch(setMessages(messages));
     return messages

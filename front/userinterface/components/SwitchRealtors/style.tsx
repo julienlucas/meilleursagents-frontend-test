@@ -5,4 +5,5 @@ export const SSwitchRealtors = styled.select`
   box-shadow: none !important;
   border: none !important;
   min-width: 100px;
+  outline: none;
 `;

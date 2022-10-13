@@ -3,7 +3,7 @@ import { Store } from '../../domain/entities/store.interface';
 import { setPage, useStore } from '../../store';
 
 const useInfiniteScroll = () => {
-  const [state, dispatch] = useStore<Store>({});
+  const [,dispatch] = useStore<Store>({});
   const loadMoreRef = useRef<HTMLInputElement | null>(null);
 
   const handleObserver = useCallback((entries) => {

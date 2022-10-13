@@ -25,10 +25,9 @@ const MailList = () => {
     }
   }, [page]);
 
-  useEffect(() => {
-    console.log(state.messages)
-  }, [state.messages]);
-
+  const showMessageDetails = (message) => {
+    navigate(`/realtors/${state.selectedRealtorId}/messages/${message.id}`, { state: { openMessageDetails: true } });
+  };
 
   const messages = useMemo(() => {
     if (state.messages) {
@@ -40,13 +39,12 @@ const MailList = () => {
                 <SMail
                   key={message.id}
                   readStatus={message.read}
-                  onClick={() => navigate(`/realtors/${state.selectedRealtorId}/messages/${message.id}`)}
+                  onClick={() => showMessageDetails(message)}
                 >
                   <h3>{message.contact?.firstname} {message.contact?.lastname}</h3>
                   <p className="date">{getFomatedDate(message.date)}</p>
                   <p>Email {message.id}</p>
-                  {console.log(message.read)}
-                  <p>{message.body.split(' ').slice(0,12).join(' ')}</p>
+                  <p className="body">{message.body.split(' ').slice(0,12).join(' ')}</p>
                 </SMail>
               )
             }
@@ -60,6 +58,7 @@ const MailList = () => {
                   <h3>{message.contact?.firstname} {message.contact?.lastname}</h3>
                   <p className="date">{getFomatedDate(message.date)}</p>
                   <p>{message.subject}</p>
+                  <p className="body">{message.subject}</p>
                 </SSms>
               )
             }

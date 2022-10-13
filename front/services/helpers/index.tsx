@@ -16,35 +16,35 @@ export const getFomatedDate = (time: any): string => {
   }
 
   var time_formats = [
-    [60, 'secondes', 1], // 60
-    [120, 'One minute ago', 'One minute ago'], // 60*2
-    [3600, 'minutes ago', 60], // 60*60, 60
-    [7200, 'One hour ago', 'One hour ago'], // 60*60*2
-    [86400, 'hours ago', 3600], // 60*60*24, 60*60
-    [172800, 'Yesterday', 'Demain'], // 60*60*24*2
-    [604800, 'days ago', 86400], // 60*60*24*7, 60*60*24
-    [1209600, 'Last week', 'Next week'], // 60*60*24*7*4*2
-    [2419200, 'weeks ago', 604800], // 60*60*24*7*4, 60*60*24*7
-    [4838400, 'Last month', 'Next month'], // 60*60*24*7*4*2
-    [29030400, 'month ago', 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
-    [58060800, "Last year", 'Next year'], // 60*60*24*7*4*12*2
-    [2903040000, 'years ago', 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
+    [172800, 'Hier', 'Demain'], // 60*60*24*2
+    [604800, 'jours', 86400], // 60*60*24*7, 60*60*24
+    [1209600, 'Semaine dernière', 'Semaine prochaine'], // 60*60*24*7*4*2
+    [2419200, 'semaines', 604800], // 60*60*24*7*4, 60*60*24*7
+    [4838400, 'Mois dernier', 'Mois prochain'], // 60*60*24*7*4*2
+    [29030400, 'mois', 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
+    [58060800, 'Année dernière', 'Année prochaine'], // 60*60*24*7*4*12*2
+    [2903040000, 'années', 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
   ];
 
   var seconds = (+new Date() - time) / 1000,
       list_choice = 1;
 
-  if (seconds === 0) {
-    return 'Juste maintenant'
+  function isToday(date) {
+    const today = new Date();
+
+    if (today.toDateString() === date.toDateString()) {
+      return true;
+    }
+
+    return false;
   }
 
-  if (seconds < 0) {
-    seconds = Math.abs(seconds);
-    list_choice = 2;
-  }
-
-  if (seconds < 172800) {
+  if (seconds < 86400 && !isToday) {
     return moment(date).format('h:mm a');
+  }
+
+  if (seconds > 172800) {
+    return moment(date).format('D/M/YY');
   }
 
   var i = 0,

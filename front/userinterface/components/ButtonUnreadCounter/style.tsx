@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { theme } from '../../../services/theme';
-import iconMailOpen from '../../../../assets/icon-mail-open.svg';
+const iconMailOpen = new URL('../../../../assets/icon-mail-open.svg', import.meta.url).href;
 
 export const SButtonUnreadCounter = styled.button`
   position: relative;
@@ -9,13 +9,14 @@ export const SButtonUnreadCounter = styled.button`
   min-width: 60px;
   height: 31px;
   color: white;
-  background: ${theme.purple};
+  background: ${props => props.count === 0 ? theme.darkGrey : theme.purple};
   border-radius: 8px;
   align-items: center;
   justify-content: center;
   padding: 0 4px;
   border: 0;
   font-size: 16px;
+  transition: .1s;
 
   span {
     background-image: url(${iconMailOpen});

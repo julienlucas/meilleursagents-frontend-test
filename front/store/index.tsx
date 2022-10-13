@@ -1,4 +1,5 @@
 import React, { useReducer, useContext, createContext } from 'react';
+import { Message } from '../domain/entities/message.interface'
 import { Store } from '../domain/entities/store.interface'
 
 export const SET_MESSAGES = 'SET_MESSAGES';
@@ -68,13 +69,16 @@ export const storeReducers = (state = initialState, action) => {
   if (action.type === SET_MESSAGES) {
     return {
       ...state,
-      messages: action.messages,
+      messages: action.messages
     };
   }
   if (action.type === SET_MESSAGES_PAGINATED) {
+    const messages = state.messages.concat(action.messages)
+      .sort((a: Message ,b: Message) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
     return {
       ...state,
-      messages: state.messages.concat(action.messages),
+      messages
     };
   }
   if (action.type === SET_REALTORS) {

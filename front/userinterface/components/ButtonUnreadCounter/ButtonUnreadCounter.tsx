@@ -9,7 +9,7 @@ const ButtonUnreadCounter: React.FC = () => {
   const { unreadCount } = state;
 
   return (
-    <SButtonUnreadCounter>
+    <SButtonUnreadCounter count={unreadCount}>
       <span><img src={IconCounter} alt="" title="" /> {unreadCount}</span>
     </SButtonUnreadCounter>
   );
