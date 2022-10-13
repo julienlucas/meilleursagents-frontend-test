@@ -7,5 +7,6 @@ export interface Store {
   selectedRealtorId: string,
   selectedMessageId: string,
   selectedMessage: Message | null,
-  unreadCount: number
+  unreadCount: number,
+  page: number
 };

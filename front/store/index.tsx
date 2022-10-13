@@ -2,10 +2,12 @@ import React, { useReducer, useContext, createContext } from 'react';
 import { Store } from '../domain/entities/store.interface'
 
 export const SET_MESSAGES = 'SET_MESSAGES';
+export const SET_MESSAGES_PAGINATED = 'SET_MESSAGES_PAGINATED';
 export const SET_REALTORS = 'SET_REALTORS';
 export const SET_SELECTED_MESSAGE = 'SET_SELECTED_MESSAGE';
 export const SET_SELECTED_REALTOR_ID = 'SET_SELECTED_REALTOR_ID';
 export const SET_UNREAD_COUNT = 'SET_UNREAD_COUNT';
+export const SET_PAGE = 'SET_PAGE';
 
 export const initialState = {
   realtors: [],
@@ -13,7 +15,8 @@ export const initialState = {
   selectedRealtorId: localStorage.getItem('selectedRealtorId') || "",
   selectedMessageId: localStorage.getItem('selectedMessageId') || "",
   selectedMessage: null,
-  unreadCount: 0
+  unreadCount: 0,
+  page: 1
 };
 
 const StoreContext = createContext<{
@@ -27,8 +30,15 @@ StoreContext.displayName = 'Store';
 
 export const useStore = () => useContext(StoreContext);
 
+export const setPage = () => ({
+  type: SET_PAGE
+});
 export const setMessages = (messages) => ({
   type: SET_MESSAGES,
+  messages,
+});
+export const setMessagesPaginated = (messages) => ({
+  type: SET_MESSAGES_PAGINATED,
   messages,
 });
 export const setRealtors = (realtors) => ({
@@ -49,10 +59,22 @@ export const setUnreadCount = (unreadCount) => ({
 });
 
 export const storeReducers = (state = initialState, action) => {
+  if (action.type === SET_PAGE) {
+    return {
+      ...state,
+      page: state.page + 1
+    };
+  }
   if (action.type === SET_MESSAGES) {
     return {
       ...state,
       messages: action.messages,
+    };
+  }
+  if (action.type === SET_MESSAGES_PAGINATED) {
+    return {
+      ...state,
+      messages: state.messages.concat(action.messages),
     };
   }
   if (action.type === SET_REALTORS) {

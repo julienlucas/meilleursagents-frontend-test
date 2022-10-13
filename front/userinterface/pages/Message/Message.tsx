@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import moment from 'moment';
 import MailList from '../../components/MailList/MailList';
 import { useParams, useNavigate } from 'react-router-dom';
 import { SMessage, SMessageHeader, SMessageBody, SMailContainer } from './style';
@@ -35,39 +36,41 @@ const Message: React.FC = () => {
 
   return (
       <Layout>
-        <SMessage>
+        <>
           <MailList />
-          <SMailContainer>
-            <SMessageHeader>
-              {selectedMessage?.contact?.firstname && (
-                <h3>{selectedMessage?.contact?.firstname} {selectedMessage?.contact?.lastname}</h3>
-              )}
-              <ul>
-                {selectedMessage?.contact?.email && (
-                  <li>
-                    Email <span>{selectedMessage?.contact?.email}</span>
-                  </li>
+          <SMessage>
+            <SMailContainer>
+              <SMessageHeader>
+                {selectedMessage?.contact?.firstname && (
+                  <h3>{selectedMessage?.contact?.firstname} {selectedMessage?.contact?.lastname}</h3>
                 )}
-                {selectedMessage?.contact?.phone && (
-                  <li>
-                    Phone <span>{selectedMessage?.contact?.phone}</span>
-                  </li>
-                )}
-              </ul>
-            </SMessageHeader>
-            <SMessageBody>
-              <h3>
-                {selectedMessage?.contact?.firstname}
-                {selectedMessage?.contact?.lastname}
-              </h3>
+                <ul>
+                  {selectedMessage?.contact?.email && (
+                    <li>
+                      Email <a href={`mailto:${selectedMessage?.contact?.email}`}>{selectedMessage?.contact?.email}</a>
+                    </li>
+                  )}
+                  {selectedMessage?.contact?.phone && (
+                    <li>
+                      Phone <a href={`tel:${selectedMessage?.contact?.phone}`}>{selectedMessage?.contact?.phone}</a>
+                    </li>
+                  )}
+                </ul>
+              </SMessageHeader>
+              <SMessageBody>
+                <h3>
+                  {selectedMessage?.contact?.firstname}
+                  {selectedMessage?.contact?.lastname}
+                </h3>
 
-              <p>{selectedMessage?.date}</p>
-              {selectedMessage?.body && (
-                <div dangerouslySetInnerHTML={{__html: selectedMessage?.body}} />
-              )}
-            </SMessageBody>
-          </SMailContainer>
-        </SMessage>
+                <p>{moment(selectedMessage?.date).format('MMMM Do YYYY, h:mm:ss a')}</p>
+                {selectedMessage?.body && (
+                  <div dangerouslySetInnerHTML={{__html: selectedMessage?.body}} />
+                )}
+              </SMessageBody>
+            </SMailContainer>
+          </SMessage>
+        </>
       </Layout>
   );
 };

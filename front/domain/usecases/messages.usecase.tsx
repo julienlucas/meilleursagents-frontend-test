@@ -1,7 +1,7 @@
 import MessagesGateway from '../../infrastructure/MessagesGateway';
 import { getRealtorsUC } from '../../domain/usecases/realtors.usecase';
 import { Message } from '../entities/message.interface';
-import { setMessages, setSelectedMessage } from '../../store';
+import { setMessages, setMessagesPaginated, setSelectedMessage } from '../../store';
 
 export async function getMessagesUC(realtorId: string, dispatch: React.Dispatch<any>): Promise<Message> {
   const messagesGateway = MessagesGateway.getInstance();
@@ -10,6 +10,20 @@ export async function getMessagesUC(realtorId: string, dispatch: React.Dispatch<
     const messages = await messagesGateway.getMessages(realtorId);
 
     dispatch(setMessages(messages));
+    return messages
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function getMessagesPaginatedUC(realtorId: string, params: any, dispatch: React.Dispatch<any>): Promise<Message> {
+  const messagesGateway = MessagesGateway.getInstance();
+
+  try {
+    const messages = await messagesGateway.getMessages(realtorId, params);
+
+    dispatch(setMessagesPaginated(messages));
     return messages
   } catch (error) {
     console.error(error);

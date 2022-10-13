@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 export const SMessage = styled.main`
-  display: flex;
+  position: relative;
+  float: right;
   width: 100%;
+  max-width: calc(100% - 377px);
 `;
 
 export const SMailContainer = styled.div`
   margin: 30px 30px 0;
-  width: 100%;
-  min-width: calc(100% - 375px);
 `;
 
 export const SMessageHeader = styled.section`
