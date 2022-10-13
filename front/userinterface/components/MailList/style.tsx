@@ -29,11 +29,25 @@ export const SSms = styled.div`
   height: 100%;
   padding: 20px 20px 20px 40px;
   border-bottom: 2px solid ${theme.lightGrey100};
-  background-image: url(${iconPhone});
-  background-position: 10px 20px;
-  background-repeat: no-repeat;
   cursor: pointer;
   color: ${props => props.readStatus ? theme.darkGrey : "black"};
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+	  height: 100%;
+    background-image: url(${iconPhone});
+    background-position: 10px 22px;
+    background-repeat: no-repeat;
+    content: '';
+
+    ${({ readStatus }) =>
+      readStatus && `
+        filter: grayscale(100%) brightness(500%);
+      `}
+  }
 
   &:hover {
     background-color: ${theme.lightGrey};
@@ -75,7 +89,7 @@ export const SMail = styled.div`
       background-position: 10px 20px;
     ` : `
       background: url(${iconMail}) no-repeat;
-      background-position: 10px 22px;
+      background-position: 10px 23px;
     `}
 
   &:hover {

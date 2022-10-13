@@ -6,11 +6,10 @@ import useWindowSize from '../../../services/hooks/useWindowSize';
 import { SMessage, SMessageHeader, SMessageBody, SMailContainer, SCloseButton } from './style';
 import Layout from '../../components/Layout/Layout';
 import { getSelectedMessageUC, setMessageReadedUC, setDefaultSelectedMessageUC } from '../../../domain/usecases/messages.usecase'
-import { Store } from '../../../domain/entities/store.interface';
 import { useStore } from '../../../store';
 
 const Message: React.FC = () => {
-  const [state, dispatch] = useStore<Store>({});
+  const [state, dispatch] = useStore();
   const [open, setOpen] = useState<boolean>(false);
   const [showCloseButton, setShowCloseButton] = useState<boolean>(true);
   const width = useWindowSize();

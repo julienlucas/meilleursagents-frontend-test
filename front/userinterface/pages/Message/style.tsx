@@ -4,6 +4,7 @@ const iconMailOpen = new URL('../../../../assets/icon-mail-open.svg', import.met
 
 export const SMessage = styled.main`
   position: relative;
+  display: flex;
   float: right;
   width: 100%;
   height: 100%;
@@ -82,7 +83,7 @@ export const SMessageBody = styled.div`
   margin: 25px 0;
   padding: 40px 30px;
   background: white;
-  height: 100%;
+  height: calc(100% - 320px);
 
   .date {
     margin-bottom: 50px;

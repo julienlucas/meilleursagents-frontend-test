@@ -8,7 +8,8 @@ export async function getMessagesUC(realtorId: string, dispatch: React.Dispatch<
 
   try {
     const messages = await messagesGateway.getMessages(realtorId);
-    messages.sort((a: Message ,b: Message) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
+    console.log(messages)
 
     dispatch(setMessages(messages));
     return messages
@@ -23,6 +24,8 @@ export async function getMessagesPaginatedUC(realtorId: string, params: any, dis
 
   try {
     const messages = await messagesGateway.getMessages(realtorId, params);
+
+        console.log(messages)
 
     dispatch(setMessagesPaginated(messages));
     return messages

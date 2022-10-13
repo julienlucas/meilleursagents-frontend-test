@@ -1,15 +1,14 @@
 import { useRef, useEffect, useCallback } from 'react';
-import { Store } from '../../domain/entities/store.interface';
 import { setPage, useStore } from '../../store';
 
 const useInfiniteScroll = () => {
-  const [,dispatch] = useStore<Store>({});
+  const [state, dispatch] = useStore();
   const loadMoreRef = useRef<HTMLInputElement | null>(null);
 
   const handleObserver = useCallback((entries) => {
     const [target] = entries;
     if (target.isIntersecting) {
-      dispatch(setPage())
+      dispatch(setPage(state.page += 1));
     }
   }, []);
 

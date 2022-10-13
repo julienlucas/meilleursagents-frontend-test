@@ -1,13 +1,12 @@
 import React, { useEffect, ChangeEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { SSwitchRealtors } from './style';
-import { Store } from '../../../domain/entities/store.interface';
 import { getRealtorsUC, setSelectedRealtorUC } from '../../../domain/usecases/realtors.usecase'
 import { setDefaultSelectedMessageUC } from '../../../domain/usecases/messages.usecase'
-import { useStore } from '../../../store';
+import { useStore, setPage } from '../../../store';
 
 const SwitchRealtors: React.FC = () => {
-  const [state, dispatch] = useStore<Store>({});
+  const [state, dispatch] = useStore();
   const navigate = useNavigate();
   const { realtorId } = useParams();
 
@@ -26,6 +25,7 @@ const SwitchRealtors: React.FC = () => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     navigate(`/realtors/${value}`);
+    dispatch(setPage(1));
     setDefaultSelectedMessageUC(value, dispatch);
   };
 

@@ -20,19 +20,18 @@ export const initialState = {
   page: 1
 };
 
-const StoreContext = createContext<{
-  state: Store;
-  dispatch: React.Dispatch<any>;
-}>({
-  state: initialState,
-  dispatch: () => null
-});
+export const StoreContext = createContext<[Store, React.Dispatch<any>]>([
+  initialState,
+  () => {}
+]);
+
 StoreContext.displayName = 'Store';
 
 export const useStore = () => useContext(StoreContext);
 
-export const setPage = () => ({
-  type: SET_PAGE
+export const setPage = (page) => ({
+  type: SET_PAGE,
+  page
 });
 export const setMessages = (messages) => ({
   type: SET_MESSAGES,
@@ -59,11 +58,11 @@ export const setUnreadCount = (unreadCount) => ({
   unreadCount,
 });
 
-export const storeReducers = (state = initialState, action) => {
+export const storeReducers = (state = initialState, action: any) => {
   if (action.type === SET_PAGE) {
     return {
       ...state,
-      page: state.page + 1
+      page: action.page
     };
   }
   if (action.type === SET_MESSAGES) {
@@ -73,12 +72,9 @@ export const storeReducers = (state = initialState, action) => {
     };
   }
   if (action.type === SET_MESSAGES_PAGINATED) {
-    const messages = state.messages.concat(action.messages)
-      .sort((a: Message ,b: Message) => new Date(b.date).getTime() - new Date(a.date).getTime())
-
     return {
       ...state,
-      messages
+      messages: state.messages.concat(action.messages)
     };
   }
   if (action.type === SET_REALTORS) {
