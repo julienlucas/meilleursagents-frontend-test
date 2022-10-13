@@ -16,10 +16,8 @@ import Header from '../../userinterface/components/Header/Header';
 const state = { realtors: [] };
 const dispatch = jest.fn();
 
-
 const wrapper = () => (
-  <StoreContext.Provider value={[state, dispatch]}>
-  </StoreContext.Provider>
+  <StoreContext.Provider value={[state, dispatch]}></StoreContext.Provider>
 );
 
 const mockUseContext = jest.fn().mockImplementation(() => ({ state, dispatch }));
@@ -35,13 +33,10 @@ React.useContext = mockUseContext;
 //   });
 // });
 
-
-
 describe('useFeature test', () => {
   test('should return present feature toggles  with its state and dispatch function', () => {
     render(
-      <StoreProvider initialState={initialState} reducer={storeReducers}>
-     </StoreProvider>
+      <StoreProvider initialState={initialState} reducer={storeReducers}></StoreProvider>,
     );
     const { result } = renderHook(() => useStore(), { wrapper });
 
@@ -91,19 +86,19 @@ var mockDeleteFunctionKey;
 //               },
 //               selectedTemplateId: null,
 //           }));
-      //     mockCreateFunctionKey.mockImplementation((res) => ({ ...res, id: 'f3' }));
-      //     const functionKeyToBeCreated = {
-      //         keyNumber  : 3,
-      //         keyLabel   : 'Accueil',
-      //         destination: '0113221218',
-      //         keyType    : 'Raccourci',
-      //         locked     : true,
-      //     };
-      //     try {
-      //         await createFunctionKeyUC(functionKeyToBeCreated);
-      //     } catch (err) {
-      //         expect(err).toContainEqual('no function key template in store');
-      //     }
-      // });
+//     mockCreateFunctionKey.mockImplementation((res) => ({ ...res, id: 'f3' }));
+//     const functionKeyToBeCreated = {
+//         keyNumber  : 3,
+//         keyLabel   : 'Accueil',
+//         destination: '0113221218',
+//         keyType    : 'Raccourci',
+//         locked     : true,
+//     };
+//     try {
+//         await createFunctionKeyUC(functionKeyToBeCreated);
+//     } catch (err) {
+//         expect(err).toContainEqual('no function key template in store');
+//     }
+// });
 //   });
 // });

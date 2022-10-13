@@ -8,7 +8,7 @@ const useInfiniteScroll = () => {
   const handleObserver = useCallback((entries) => {
     const [target] = entries;
     if (target.isIntersecting) {
-      dispatch(setPage(state.page += 1));
+      dispatch(setPage((state.page += 1)));
     }
   }, []);
 

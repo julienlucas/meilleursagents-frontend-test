@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 import { theme } from '../theme';
 
 export default createGlobalStyle`
@@ -45,4 +45,4 @@ export default createGlobalStyle`
   h3 {
     font-size: 18px;
   }
-`
+`;

@@ -1,6 +1,6 @@
 import React, { useReducer, useContext, createContext } from 'react';
-import { Message } from '../domain/entities/message.interface'
-import { Store } from '../domain/entities/store.interface'
+import { Message } from '../domain/entities/message.interface';
+import { Store } from '../domain/entities/store.interface';
 
 export const SET_MESSAGES = 'SET_MESSAGES';
 export const SET_MESSAGES_PAGINATED = 'SET_MESSAGES_PAGINATED';
@@ -13,16 +13,16 @@ export const SET_PAGE = 'SET_PAGE';
 export const initialState = {
   realtors: [],
   messages: [],
-  selectedRealtorId: localStorage.getItem('selectedRealtorId') || "",
-  selectedMessageId: localStorage.getItem('selectedMessageId') || "",
+  selectedRealtorId: localStorage.getItem('selectedRealtorId') || '',
+  selectedMessageId: localStorage.getItem('selectedMessageId') || '',
   selectedMessage: null,
   unreadCount: 0,
-  page: 1
+  page: 1,
 };
 
 export const StoreContext = createContext<[Store, React.Dispatch<any>]>([
   initialState,
-  () => {}
+  () => {},
 ]);
 
 StoreContext.displayName = 'Store';
@@ -31,7 +31,7 @@ export const useStore = () => useContext(StoreContext);
 
 export const setPage = (page) => ({
   type: SET_PAGE,
-  page
+  page,
 });
 export const setMessages = (messages) => ({
   type: SET_MESSAGES,
@@ -62,31 +62,33 @@ export const storeReducers = (state = initialState, action: any) => {
   if (action.type === SET_PAGE) {
     return {
       ...state,
-      page: action.page
+      page: action.page,
     };
   }
   if (action.type === SET_MESSAGES) {
     return {
       ...state,
-      messages: action.messages
+      messages: action.messages,
     };
   }
   if (action.type === SET_MESSAGES_PAGINATED) {
+    console.log(state.messages);
+    console.log(action.messages);
     return {
       ...state,
-      messages: state.messages.concat(action.messages)
+      messages: state.messages.concat(action.messages),
     };
   }
   if (action.type === SET_REALTORS) {
     return {
       ...state,
-      realtors: action.realtors
+      realtors: action.realtors,
     };
   }
   if (action.type === SET_SELECTED_REALTOR_ID) {
     return {
       ...state,
-      selectedRealtorId: action.selectedRealtorId
+      selectedRealtorId: action.selectedRealtorId,
     };
   }
   if (action.type === SET_SELECTED_MESSAGE) {
@@ -99,7 +101,7 @@ export const storeReducers = (state = initialState, action: any) => {
   if (action.type === SET_UNREAD_COUNT) {
     return {
       ...state,
-      unreadCount: action.unreadCount
+      unreadCount: action.unreadCount,
     };
   }
 };
@@ -112,4 +114,4 @@ const StoreProvider = ({ children, initialState, reducer }) => {
   );
 };
 
-export default StoreProvider
+export default StoreProvider;

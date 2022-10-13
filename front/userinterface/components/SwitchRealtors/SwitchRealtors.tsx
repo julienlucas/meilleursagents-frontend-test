@@ -1,8 +1,11 @@
 import React, { useEffect, ChangeEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { SSwitchRealtors } from './style';
-import { getRealtorsUC, setSelectedRealtorUC } from '../../../domain/usecases/realtors.usecase'
-import { setDefaultSelectedMessageUC } from '../../../domain/usecases/messages.usecase'
+import {
+  getRealtorsUC,
+  setSelectedRealtorUC,
+} from '../../../domain/usecases/realtors.usecase';
+import { setDefaultSelectedMessageUC } from '../../../domain/usecases/messages.usecase';
 import { useStore, setPage } from '../../../store';
 
 const SwitchRealtors: React.FC = () => {
@@ -17,7 +20,7 @@ const SwitchRealtors: React.FC = () => {
   }, [realtorId]);
 
   useEffect(() => {
-    if (realtorId && (realtorId !== state.selectedRealtorId)) {
+    if (realtorId && realtorId !== state.selectedRealtorId) {
       setSelectedRealtorUC(realtorId, dispatch);
     }
   }, [realtorId]);
@@ -31,11 +34,13 @@ const SwitchRealtors: React.FC = () => {
 
   return (
     <SSwitchRealtors onChange={handleChange} value={state.selectedRealtorId}>
-      {state.realtors?.map(realtor =>
-        <option key={realtor.id} value={realtor.id}>{realtor.name}</option>
-      )}
+      {state.realtors?.map((realtor) => (
+        <option key={realtor.id} value={realtor.id}>
+          {realtor.name}
+        </option>
+      ))}
     </SSwitchRealtors>
-  )
+  );
 };
 
 export default SwitchRealtors;

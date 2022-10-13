@@ -4,15 +4,15 @@ export const getFomatedDate = (time: any): string => {
   const date = time;
   switch (typeof time) {
     case 'number':
-        break;
+      break;
     case 'string':
-        time = +new Date(time);
-        break;
+      time = +new Date(time);
+      break;
     case 'object':
-        if (time.constructor === Date) time = time.getTime();
-        break;
+      if (time.constructor === Date) time = time.getTime();
+      break;
     default:
-        time = +new Date();
+      time = +new Date();
   }
 
   var time_formats = [
@@ -27,7 +27,7 @@ export const getFomatedDate = (time: any): string => {
   ];
 
   var seconds = (+new Date() - time) / 1000,
-      list_choice = 1;
+    list_choice = 1;
 
   function isToday(date) {
     const today = new Date();
@@ -48,15 +48,14 @@ export const getFomatedDate = (time: any): string => {
   }
 
   var i = 0,
-      format;
+    format;
 
-  while (format = time_formats[i++]) // eslint-disable-line no-cond-assign
-      if (seconds < format[0]) {
-          if (typeof format[2] == 'string')
-              return format[list_choice];
-          else
-              return Math.floor(seconds / format[2]) + ' ' + format[1];
-      }
+  while ((format = time_formats[i++]))
+    // eslint-disable-line no-cond-assign
+    if (seconds < format[0]) {
+      if (typeof format[2] == 'string') return format[list_choice];
+      else return Math.floor(seconds / format[2]) + ' ' + format[1];
+    }
 
   return time;
 };

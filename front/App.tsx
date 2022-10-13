@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import StoreProvider from './store';
 import { initialState, storeReducers } from './store';
@@ -15,7 +15,10 @@ function App() {
             <Route path="/" element={<Message />} />
             <Route path="/realtors" element={<Message />}>
               <Route path="/realtors:realtorId" element={<Message />} />
-              <Route path="/realtors/:realtorId/messages/:messageId" element={<Message />} />
+              <Route
+                path="/realtors/:realtorId/messages/:messageId"
+                element={<Message />}
+              />
             </Route>
           </Routes>
         </BrowserRouter>

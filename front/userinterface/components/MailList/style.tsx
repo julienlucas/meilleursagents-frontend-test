@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { theme } from '../../../services/theme';
-const iconMailOpen = new URL('../../../../assets/icon-mail-open.svg', import.meta.url).href;
+const iconMailOpen = new URL('../../../../assets/icon-mail-open.svg', import.meta.url)
+  .href;
 const iconMail = new URL('../../../../assets/icon-mail.svg', import.meta.url).href;
 const iconPhone = new URL('../../../../assets/icon-phone.svg', import.meta.url).href;
 
@@ -12,7 +13,7 @@ export const SMailList = styled.aside`
   height: calc(100% - 60px);
   background: white;
   border-right: 2px solid ${theme.lightGrey100};
-  overflow-Y: scroll;
+  overflow-y: scroll;
   z-index: 1;
 
   @media (max-width: 768px) {
@@ -30,21 +31,22 @@ export const SSms = styled.div`
   padding: 20px 20px 20px 40px;
   border-bottom: 2px solid ${theme.lightGrey100};
   cursor: pointer;
-  color: ${props => props.readStatus ? theme.darkGrey : "black"};
+  color: ${(props) => (props.readStatus ? theme.darkGrey : 'black')};
 
   &::before {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-	  height: 100%;
+    height: 100%;
     background-image: url(${iconPhone});
     background-position: 10px 22px;
     background-repeat: no-repeat;
     content: '';
 
     ${({ readStatus }) =>
-      readStatus && `
+      readStatus &&
+      `
         filter: grayscale(100%) brightness(500%);
       `}
   }
@@ -66,11 +68,11 @@ export const SSms = styled.div`
     position: relative;
     bottom: -3px;
     float: right;
-    color: ${props => props.readStatus ? theme.darkGrey : theme.purple};
+    color: ${(props) => (props.readStatus ? theme.darkGrey : theme.purple)};
   }
 
   h3 {
-    display: inline-block
+    display: inline-block;
   }
 `;
 
@@ -81,13 +83,15 @@ export const SMail = styled.div`
   padding: 20px 20px 20px 40px;
   border-bottom: 2px solid ${theme.lightGrey100};
   cursor: pointer;
-  color: ${props => props.readStatus ? theme.darkGrey : "black"};
+  color: ${(props) => (props.readStatus ? theme.darkGrey : 'black')};
 
   ${({ readStatus }) =>
-    readStatus ? `
+    readStatus
+      ? `
       background: url(${iconMailOpen}) no-repeat;
       background-position: 10px 20px;
-    ` : `
+    `
+      : `
       background: url(${iconMail}) no-repeat;
       background-position: 10px 23px;
     `}
@@ -109,10 +113,10 @@ export const SMail = styled.div`
     position: relative;
     bottom: -3px;
     float: right;
-    color: ${props => props.readStatus ? theme.darkGrey : theme.purple};
+    color: ${(props) => (props.readStatus ? theme.darkGrey : theme.purple)};
   }
 
   h3 {
-    display: inline-block
+    display: inline-block;
   }
-`
+`;
