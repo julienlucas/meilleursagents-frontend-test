@@ -72,7 +72,11 @@ export async function setDefaultSelectedMessageUC(
   }
 }
 
-export async function setMessageReadedUC(realtorId: string, messageId: string, dispatch) {
+export async function setMessageReadedUC(
+  realtorId: string,
+  messageId: string,
+  dispatch: React.Dispatch<any>
+  ) {
   const messagesGateway = MessagesGateway.getInstance();
 
   try {

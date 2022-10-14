@@ -10,7 +10,7 @@ export async function getRealtorsUC(
 
   try {
     const realtors = await realtorsGateway.getRealtors();
-    const count = realtors.filter((realtor) => realtor.id === Number(realtorId))[0]
+    const count = realtors.filter((realtor: Realtor) => realtor.id === Number(realtorId))[0]
       .unread_messages;
 
     dispatch(setRealtors(realtors));

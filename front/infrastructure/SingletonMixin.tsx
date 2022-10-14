@@ -3,13 +3,10 @@
  */
 export default () =>
   class {
-    static instance = null;
+    static instance;
 
     static getInstance() {
-      if (this.instance === null) {
-        this.instance = new this();
-      }
-
+      this.instance = new this();
       return this.instance;
     }
   };

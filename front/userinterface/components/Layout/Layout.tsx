@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Header from '../Header/Header';
 import { SLayout } from './style';
 
 interface LayoutProps {
-  children: JSX.Element;
+  children: ReactNode
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {

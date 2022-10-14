@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { theme } from '../../../services/theme';
-const iconMailOpen = new URL('../../../../assets/icon-mail-open.svg', import.meta.url)
-  .href;
+const iconMailOpen = '../../../../assets/icon-mail-open.svg';
 
 export const SMessage = styled.main`
   position: relative;

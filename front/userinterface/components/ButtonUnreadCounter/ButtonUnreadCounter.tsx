@@ -1,7 +1,7 @@
 import React from 'react';
 import { SButtonUnreadCounter } from './style';
 import { useStore } from '../../../store';
-const IconCounter = new URL('../../../../assets/icon-counter.svg', import.meta.url).href;
+const IconCounter = '../../../../assets/icon-counter.svg';
 
 const ButtonUnreadCounter: React.FC = () => {
   const [state] = useStore();

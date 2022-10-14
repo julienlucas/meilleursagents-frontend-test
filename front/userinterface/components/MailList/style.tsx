@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { theme } from '../../../services/theme';
-const iconMailOpen = new URL('../../../../assets/icon-mail-open.svg', import.meta.url)
-  .href;
-const iconMail = new URL('../../../../assets/icon-mail.svg', import.meta.url).href;
-const iconPhone = new URL('../../../../assets/icon-phone.svg', import.meta.url).href;
+const iconMailOpen = '../../../../assets/icon-mail-open.svg'
+const iconMail = '../../../../assets/icon-mail.svg'
+const iconPhone = '../../../../assets/icon-phone.svg';
 
 export const SMailList = styled.aside`
   position: relative;

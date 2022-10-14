@@ -1,104 +1,82 @@
-// import {
-//     createFunctionKeyUC,
-//     deleteFunctionKeyUC,
-// } from '../../../app/domain/usecases/functionKey.usecase';
-// import { hostedTelephonyStore } from '../../../app/store/hostedTelephonyStore';
-// import { Store } from '../../../app/store';
-
 import React from 'react';
-import { render } from '@testing-library/react';
-import App from '../../App';
+import { render, waitFor, act } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
-import { initialState, storeReducers } from '../../store';
-import StoreProvider, { useStore, StoreContext } from '../../store';
-import Header from '../../userinterface/components/Header/Header';
+import '@testing-library/jest-dom'
+import StoreProvider, { useStore, StoreContext, initialState, storeReducers, setMessages, setPage } from '../../store';
+import MessagesGateway from '../../infrastructure/MessagesGateway';
+import { getMessagesUC } from '../../domain/usecases/messages.usecase';
+import App from '../../App';
+import Message from '../../userinterface/pages/Message/Message';
 
-const state = { realtors: [] };
+var mockInstance
+jest.mock('../../infrastructure/MessagesGateway', () => {
+  mockInstance = jest.fn();
+
+  const mock = {
+    getMessages: () => ''
+  };
+
+  const mockMessages = {
+    messages: 'MESSAGES'
+  };
+
+  return {
+    getInstance: () => mock,
+    getMessages: () => mockMessages
+  };
+});
+
+const state = initialState;
 const dispatch = jest.fn();
-
-const wrapper = () => (
-  <StoreContext.Provider value={[state, dispatch]}></StoreContext.Provider>
-);
+const wrapper = ({ children }) => {
+  return (
+    <StoreContext.Provider value={[state, dispatch]}>{children}</StoreContext.Provider>
+  )
+}
 
 const mockUseContext = jest.fn().mockImplementation(() => ({ state, dispatch }));
 React.useContext = mockUseContext;
 
-// describe('<AuthProvider />', () => {
-//   test('provides expected AuthContext obj to child elements', () => {
-//     render(
-//       <StoreProvider initialState={initialState} reducer={storeReducers}>
-//         <p>fdsfdsfds</p>
-//       </StoreProvider>
-//     );
-//   });
-// });
 
 describe('useFeature test', () => {
-  test('should return present feature toggles  with its state and dispatch function', () => {
-    render(
-      <StoreProvider initialState={initialState} reducer={storeReducers}></StoreProvider>,
+  test('should return present feature toggles  with its state and dispatch function', async () => {
+    await render(
+      <StoreProvider initialState={initialState} reducer={storeReducers}>
+        <></>
+      </StoreProvider>,
     );
-    const { result } = renderHook(() => useStore(), { wrapper });
+    const { result, rerender, waitForNextUpdate } = renderHook(() => useStore(), { wrapper });
 
-    // expect(result.state.messages.length).toBe(0);
-    // expect(result.current).toEqual({ state, dispatch });
-  });
+    // const messagesGateway = MessagesGateway.getInstance();
+    // // @ts-ignore: Unreachable code error
+    // await MessagesGateway.getMessages("101");
+
+    // await waitFor(() => getMessagesUC("101", dispatch))
+
+    // const [top, deux] = useStore();
+    // await waitFor(() => deux(setPage(3)))
+
+
+    // @ts-ignore: Unreachable code error
+      // await getMessagesUC("101",result.current.dispatch)
+
+    //  await act(() =>  {
+    //   // @ts-ignore: Unreachable code error
+    //   result.current.dispatch(setPage(2))
+    // })
+
+  // @ts-ignore: Unreachable code error
+    await waitFor(() => expect(result.current.state).toBe(2))
+
+    // const action = {
+    //   type: "SET_PAGE",
+    //   page: 3
+    // };
+
+    // const updatedState = storeReducers(initialState, action);
+
+    // expect(updatedState).toBe(2);
+
+    // await waitFor(() => expect(wrapper).toBeInTheDocument());
+  })
 });
-
-/* eslint-disable no-var */
-var mockGetFunctionKeyTemplatesByOrgId;
-var mockCreateFunctionKey;
-var mockUpdateFunctionKey;
-var mockDeleteFunctionKey;
-/* eslint-disable no-var */
-
-// jest.mock('../../../app/infrastructure/FunctionKeyGateway', () => {
-//     mockGetFunctionKeyTemplatesByOrgId = jest.fn();
-//     mockCreateFunctionKey = jest.fn();
-//     mockUpdateFunctionKey = jest.fn();
-//     mockDeleteFunctionKey = jest.fn();
-
-//     const mock = {
-//         getFunctionKeyTemplatesByOrgId: mockGetFunctionKeyTemplatesByOrgId,
-//         createFunctionKey             : mockCreateFunctionKey,
-//         updateFunctionKey             : mockUpdateFunctionKey,
-//         deleteFunctionKey             : mockDeleteFunctionKey,
-//     };
-
-//     return {
-//         getInstance: () => mock,
-//     };
-// });
-
-// beforeEach(() => {
-//     mockGetFunctionKeyTemplatesByOrgId.mockClear();
-//     mockCreateFunctionKey.mockClear();
-//     mockUpdateFunctionKey.mockClear();
-//     mockDeleteFunctionKey.mockClear();
-// });
-
-// describe('FunctionKey usecases', () => {
-//   describe('createFunctionKeyUC', () => {
-//       it('throws when creating a key without a selected template', async () => {
-//           hostedTelephonyStore.update(() => ({
-//               functionKeyTemplates: {
-//                   data: null,
-//               },
-//               selectedTemplateId: null,
-//           }));
-//     mockCreateFunctionKey.mockImplementation((res) => ({ ...res, id: 'f3' }));
-//     const functionKeyToBeCreated = {
-//         keyNumber  : 3,
-//         keyLabel   : 'Accueil',
-//         destination: '0113221218',
-//         keyType    : 'Raccourci',
-//         locked     : true,
-//     };
-//     try {
-//         await createFunctionKeyUC(functionKeyToBeCreated);
-//     } catch (err) {
-//         expect(err).toContainEqual('no function key template in store');
-//     }
-// });
-//   });
-// });
