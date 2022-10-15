@@ -4,26 +4,27 @@ import {
   getMessagesUC,
   getMessagesPaginatedUC,
 } from '../../../domain/usecases/messages.usecase';
+import { useAppDispatch, useTypedSelector } from '../../../store/store';
 import { getFomatedDate } from '../../../services/helpers';
 import useInfiniteScroll from '../../../services/hooks/useInfiniteScroll';
 import { SMailList, SMail, SSms } from './style';
-import { useStore } from '../../../store';
 
 const MailList = () => {
-  const [state, dispatch] = useStore();
-  const { selectedRealtorId, page } = state;
   const navigate = useNavigate();
   const { loadMoreRef } = useInfiniteScroll();
+  const dispatch = useAppDispatch();
+  const state = useTypedSelector((state) => state);
+  const { selectedRealtorId, page } = state;
 
   useEffect(() => {
     if (selectedRealtorId) {
-      getMessagesUC(selectedRealtorId, dispatch);
+      dispatch(getMessagesUC(selectedRealtorId));
     }
   }, [selectedRealtorId]);
 
   useEffect(() => {
     if (page > 1) {
-      getMessagesPaginatedUC(selectedRealtorId, `page=${page}`, dispatch);
+      dispatch(getMessagesPaginatedUC({ selectedRealtorId, params: `page=${page}` }));
     }
   }, [page]);
 
@@ -53,7 +54,7 @@ const MailList = () => {
               </SMail>
             );
           }
-          if (message.type === 'sms') {
+          if (message.type === 'sms' || message.type === 'phone') {
             return (
               <SSms
                 key={message.id}

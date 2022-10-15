@@ -3,7 +3,7 @@ import Header from '../Header/Header';
 import { SLayout } from './style';
 
 interface LayoutProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {

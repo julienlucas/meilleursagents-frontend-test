@@ -6,6 +6,6 @@ module.exports = {
   },
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
   globals: {
-    window: {}
-  }
+    window: {},
+  },
 };

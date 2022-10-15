@@ -1,10 +1,10 @@
 import React from 'react';
 import { SButtonUnreadCounter } from './style';
-import { useStore } from '../../../store';
+import { useTypedSelector } from '../../../store/store';
 const IconCounter = '../../../../assets/icon-counter.svg';
 
 const ButtonUnreadCounter: React.FC = () => {
-  const [state] = useStore();
+  const state = useTypedSelector((state) => state);
   const { unreadCount } = state;
 
   return (

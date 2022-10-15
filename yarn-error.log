@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn run test
+  /usr/local/bin/node /usr/local/bin/yarn run lint
 
 PATH: 
   /Users/Julien/.poetry/bin:/Users/Julien/.pyenv/shims:/usr/local/bin:/Users/Julien/.pyenv/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/opt/ImageMagick/bin
@@ -28,9 +28,11 @@ npm manifest:
       "type-check": "tsc"
     },
     "dependencies": {
+      "@reduxjs/toolkit": "^1.8.6",
       "moment": "^2.29.4",
       "react": "^17.0.2",
       "react-dom": "^17.0.2",
+      "react-redux": "^8.0.4",
       "react-router": "^5.2.1",
       "react-router-dom": "^6.4.2",
       "styled-components": "^5.3.6"
@@ -343,7 +345,7 @@ Lockfile:
       core-js-pure "^3.25.1"
       regenerator-runtime "^0.13.4"
   
-  "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.9", "@babel/runtime@^7.9.2":
+  "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.9", "@babel/runtime@^7.9.2":
     version "7.19.4"
     resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.19.4.tgz"
     dependencies:
@@ -681,6 +683,15 @@ Lockfile:
       "@nodelib/fs.scandir" "2.1.5"
       fastq "^1.6.0"
   
+  "@reduxjs/toolkit@^1.8.6":
+    version "1.8.6"
+    resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.8.6.tgz#147fb7957befcdb75bc9c1230db63628e30e4332"
+    dependencies:
+      immer "^9.0.7"
+      redux "^4.1.2"
+      redux-thunk "^2.4.1"
+      reselect "^4.1.5"
+  
   "@remix-run/router@1.0.2":
     version "1.0.2"
     resolved "https://registry.npmjs.org/@remix-run/router/-/router-1.0.2.tgz"
@@ -796,6 +807,13 @@ Lockfile:
     version "4.7.11"
     resolved "https://registry.npmjs.org/@types/history/-/history-4.7.11.tgz"
   
+  "@types/hoist-non-react-statics@^3.3.1":
+    version "3.3.1"
+    resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
+    dependencies:
+      "@types/react" "*"
+      hoist-non-react-statics "^3.3.0"
+  
   "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
     version "2.0.4"
     resolved "https://registry.npmjs.org/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.4.tgz"
@@ -894,6 +912,10 @@ Lockfile:
     version "4.0.2"
     resolved "https://registry.npmjs.org/@types/tough-cookie/-/tough-cookie-4.0.2.tgz"
   
+  "@types/use-sync-external-store@^0.0.3":
+    version "0.0.3"
+    resolved "https://registry.yarnpkg.com/@types/use-sync-external-store/-/use-sync-external-store-0.0.3.tgz#b6725d5f4af24ace33b36fafd295136e75509f43"
+  
   "@types/yargs-parser@*":
     version "21.0.0"
     resolved "https://registry.npmjs.org/@types/yargs-parser/-/yargs-parser-21.0.0.tgz"
@@ -988,26 +1010,6 @@ Lockfile:
       "@rollup/pluginutils" "^4.2.1"
       react-refresh "^0.13.0"
       resolve "^1.22.0"
-  
-  "@wojtekmaj/enzyme-adapter-react-17@^0.6.7":
-    version "0.6.7"
-    resolved "https://registry.npmjs.org/@wojtekmaj/enzyme-adapter-react-17/-/enzyme-adapter-react-17-0.6.7.tgz"
-    dependencies:
-      "@wojtekmaj/enzyme-adapter-utils" "^0.1.4"
-      enzyme-shallow-equal "^1.0.0"
-      has "^1.0.0"
-      prop-types "^15.7.0"
-      react-is "^17.0.0"
-      react-test-renderer "^17.0.0"
-  
-  "@wojtekmaj/enzyme-adapter-utils@^0.1.4":
-    version "0.1.4"
-    resolved "https://registry.npmjs.org/@wojtekmaj/enzyme-adapter-utils/-/enzyme-adapter-utils-0.1.4.tgz"
-    dependencies:
-      function.prototype.name "^1.1.0"
-      has "^1.0.0"
-      object.fromentries "^2.0.0"
-      prop-types "^15.7.0"
   
   abab@^2.0.6:
     version "2.0.6"
@@ -1115,17 +1117,7 @@ Lockfile:
     version "2.1.0"
     resolved "https://registry.npmjs.org/array-union/-/array-union-2.1.0.tgz"
   
-  array.prototype.filter@^1.0.0:
-    version "1.0.1"
-    resolved "https://registry.npmjs.org/array.prototype.filter/-/array.prototype.filter-1.0.1.tgz"
-    dependencies:
-      call-bind "^1.0.2"
-      define-properties "^1.1.3"
-      es-abstract "^1.19.0"
-      es-array-method-boxes-properly "^1.0.0"
-      is-string "^1.0.7"
-  
-  array.prototype.flat@^1.2.3, array.prototype.flat@^1.2.5:
+  array.prototype.flat@^1.2.5:
     version "1.3.0"
     resolved "https://registry.npmjs.org/array.prototype.flat/-/array.prototype.flat-1.3.0.tgz"
     dependencies:
@@ -1232,10 +1224,6 @@ Lockfile:
     version "1.0.2"
     resolved "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz"
   
-  boolbase@^1.0.0:
-    version "1.0.0"
-    resolved "https://registry.npmjs.org/boolbase/-/boolbase-1.0.0.tgz"
-  
   brace-expansion@^1.1.7:
     version "1.1.11"
     resolved "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz"
@@ -1327,29 +1315,6 @@ Lockfile:
     version "1.0.2"
     resolved "https://registry.npmjs.org/char-regex/-/char-regex-1.0.2.tgz"
   
-  cheerio-select@^2.1.0:
-    version "2.1.0"
-    resolved "https://registry.npmjs.org/cheerio-select/-/cheerio-select-2.1.0.tgz"
-    dependencies:
-      boolbase "^1.0.0"
-      css-select "^5.1.0"
-      css-what "^6.1.0"
-      domelementtype "^2.3.0"
-      domhandler "^5.0.3"
-      domutils "^3.0.1"
-  
-  cheerio@^1.0.0-rc.3:
-    version "1.0.0-rc.12"
-    resolved "https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.12.tgz"
-    dependencies:
-      cheerio-select "^2.1.0"
-      dom-serializer "^2.0.0"
-      domhandler "^5.0.3"
-      domutils "^3.0.1"
-      htmlparser2 "^8.0.1"
-      parse5 "^7.0.0"
-      parse5-htmlparser2-tree-adapter "^7.0.0"
-  
   ci-info@^3.2.0:
     version "3.5.0"
     resolved "https://registry.npmjs.org/ci-info/-/ci-info-3.5.0.tgz"
@@ -1400,17 +1365,13 @@ Lockfile:
     dependencies:
       delayed-stream "~1.0.0"
   
-  commander@^2.19.0:
-    version "2.20.3"
-    resolved "https://registry.npmjs.org/commander/-/commander-2.20.3.tgz"
-  
   concat-map@0.0.1:
     version "0.0.1"
     resolved "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
   
   concat-stream@^1.4.7:
     version "1.6.2"
-    resolved "https://registry.npmjs.org/concat-stream/-/concat-stream-1.6.2.tgz"
+    resolved "https://registry.yarnpkg.com/concat-stream/-/concat-stream-1.6.2.tgz#904bdf194cd3122fc675c77fc4ac3d4ff0fd1a34"
     dependencies:
       buffer-from "^1.0.0"
       inherits "^2.0.3"
@@ -1457,16 +1418,6 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.npmjs.org/css-color-keywords/-/css-color-keywords-1.0.0.tgz"
   
-  css-select@^5.1.0:
-    version "5.1.0"
-    resolved "https://registry.npmjs.org/css-select/-/css-select-5.1.0.tgz"
-    dependencies:
-      boolbase "^1.0.0"
-      css-what "^6.1.0"
-      domhandler "^5.0.2"
-      domutils "^3.0.1"
-      nth-check "^2.0.1"
-  
   css-to-react-native@^3.0.0:
     version "3.0.0"
     resolved "https://registry.npmjs.org/css-to-react-native/-/css-to-react-native-3.0.0.tgz"
@@ -1474,10 +1425,6 @@ Lockfile:
       camelize "^1.0.0"
       css-color-keywords "^1.0.0"
       postcss-value-parser "^4.0.2"
-  
-  css-what@^6.1.0:
-    version "6.1.0"
-    resolved "https://registry.npmjs.org/css-what/-/css-what-6.1.0.tgz"
   
   css.escape@^1.5.1:
     version "1.5.1"
@@ -1572,10 +1519,6 @@ Lockfile:
     dependencies:
       path-type "^4.0.0"
   
-  discontinuous-range@1.0.0:
-    version "1.0.0"
-    resolved "https://registry.npmjs.org/discontinuous-range/-/discontinuous-range-1.0.0.tgz"
-  
   doctrine@^2.1.0:
     version "2.1.0"
     resolved "https://registry.npmjs.org/doctrine/-/doctrine-2.1.0.tgz"
@@ -1592,37 +1535,11 @@ Lockfile:
     version "0.5.14"
     resolved "https://registry.npmjs.org/dom-accessibility-api/-/dom-accessibility-api-0.5.14.tgz"
   
-  dom-serializer@^2.0.0:
-    version "2.0.0"
-    resolved "https://registry.npmjs.org/dom-serializer/-/dom-serializer-2.0.0.tgz"
-    dependencies:
-      domelementtype "^2.3.0"
-      domhandler "^5.0.2"
-      entities "^4.2.0"
-  
-  domelementtype@^2.3.0:
-    version "2.3.0"
-    resolved "https://registry.npmjs.org/domelementtype/-/domelementtype-2.3.0.tgz"
-  
   domexception@^4.0.0:
     version "4.0.0"
     resolved "https://registry.npmjs.org/domexception/-/domexception-4.0.0.tgz"
     dependencies:
       webidl-conversions "^7.0.0"
-  
-  domhandler@^5.0.1, domhandler@^5.0.2, domhandler@^5.0.3:
-    version "5.0.3"
-    resolved "https://registry.npmjs.org/domhandler/-/domhandler-5.0.3.tgz"
-    dependencies:
-      domelementtype "^2.3.0"
-  
-  domutils@^3.0.1:
-    version "3.0.1"
-    resolved "https://registry.npmjs.org/domutils/-/domutils-3.0.1.tgz"
-    dependencies:
-      dom-serializer "^2.0.0"
-      domelementtype "^2.3.0"
-      domhandler "^5.0.1"
   
   electron-to-chromium@^1.4.251:
     version "1.4.276"
@@ -1640,43 +1557,9 @@ Lockfile:
     version "9.2.2"
     resolved "https://registry.npmjs.org/emoji-regex/-/emoji-regex-9.2.2.tgz"
   
-  entities@^4.2.0, entities@^4.3.0, entities@^4.4.0:
+  entities@^4.4.0:
     version "4.4.0"
     resolved "https://registry.npmjs.org/entities/-/entities-4.4.0.tgz"
-  
-  enzyme-shallow-equal@^1.0.0, enzyme-shallow-equal@^1.0.1:
-    version "1.0.4"
-    resolved "https://registry.npmjs.org/enzyme-shallow-equal/-/enzyme-shallow-equal-1.0.4.tgz"
-    dependencies:
-      has "^1.0.3"
-      object-is "^1.1.2"
-  
-  enzyme@^3.11.0:
-    version "3.11.0"
-    resolved "https://registry.yarnpkg.com/enzyme/-/enzyme-3.11.0.tgz#71d680c580fe9349f6f5ac6c775bc3e6b7a79c28"
-    dependencies:
-      array.prototype.flat "^1.2.3"
-      cheerio "^1.0.0-rc.3"
-      enzyme-shallow-equal "^1.0.1"
-      function.prototype.name "^1.1.2"
-      has "^1.0.3"
-      html-element-map "^1.2.0"
-      is-boolean-object "^1.0.1"
-      is-callable "^1.1.5"
-      is-number-object "^1.0.4"
-      is-regex "^1.0.5"
-      is-string "^1.0.5"
-      is-subset "^0.1.1"
-      lodash.escape "^4.0.1"
-      lodash.isequal "^4.5.0"
-      object-inspect "^1.7.0"
-      object-is "^1.0.2"
-      object.assign "^4.1.0"
-      object.entries "^1.1.1"
-      object.values "^1.1.1"
-      raf "^3.4.1"
-      rst-selector-parser "^2.2.3"
-      string.prototype.trim "^1.2.1"
   
   error-ex@^1.3.1:
     version "1.3.2"
@@ -1712,10 +1595,6 @@ Lockfile:
       string.prototype.trimend "^1.0.5"
       string.prototype.trimstart "^1.0.5"
       unbox-primitive "^1.0.2"
-  
-  es-array-method-boxes-properly@^1.0.0:
-    version "1.0.0"
-    resolved "https://registry.npmjs.org/es-array-method-boxes-properly/-/es-array-method-boxes-properly-1.0.0.tgz"
   
   es-shim-unscopables@^1.0.0:
     version "1.0.0"
@@ -2180,7 +2059,7 @@ Lockfile:
     version "1.1.1"
     resolved "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz"
   
-  function.prototype.name@^1.1.0, function.prototype.name@^1.1.2, function.prototype.name@^1.1.5:
+  function.prototype.name@^1.1.5:
     version "1.1.5"
     resolved "https://registry.npmjs.org/function.prototype.name/-/function.prototype.name-1.1.5.tgz"
     dependencies:
@@ -2304,7 +2183,7 @@ Lockfile:
     dependencies:
       has-symbols "^1.0.2"
   
-  has@^1.0.0, has@^1.0.3:
+  has@^1.0.3:
     version "1.0.3"
     resolved "https://registry.npmjs.org/has/-/has-1.0.3.tgz"
     dependencies:
@@ -2321,18 +2200,11 @@ Lockfile:
       tiny-warning "^1.0.0"
       value-equal "^1.0.1"
   
-  hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.1.0:
+  hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
     version "3.3.2"
     resolved "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
     dependencies:
       react-is "^16.7.0"
-  
-  html-element-map@^1.2.0:
-    version "1.3.1"
-    resolved "https://registry.npmjs.org/html-element-map/-/html-element-map-1.3.1.tgz"
-    dependencies:
-      array.prototype.filter "^1.0.0"
-      call-bind "^1.0.2"
   
   html-encoding-sniffer@^3.0.0:
     version "3.0.0"
@@ -2343,15 +2215,6 @@ Lockfile:
   html-escaper@^2.0.0:
     version "2.0.2"
     resolved "https://registry.npmjs.org/html-escaper/-/html-escaper-2.0.2.tgz"
-  
-  htmlparser2@^8.0.1:
-    version "8.0.1"
-    resolved "https://registry.npmjs.org/htmlparser2/-/htmlparser2-8.0.1.tgz"
-    dependencies:
-      domelementtype "^2.3.0"
-      domhandler "^5.0.2"
-      domutils "^3.0.1"
-      entities "^4.3.0"
   
   http-proxy-agent@^5.0.0:
     version "5.0.0"
@@ -2381,6 +2244,10 @@ Lockfile:
   ignore@^5.2.0:
     version "5.2.0"
     resolved "https://registry.npmjs.org/ignore/-/ignore-5.2.0.tgz"
+  
+  immer@^9.0.7:
+    version "9.0.15"
+    resolved "https://registry.yarnpkg.com/immer/-/immer-9.0.15.tgz#0b9169e5b1d22137aba7d43f8a81a495dd1b62dc"
   
   import-fresh@^3.0.0, import-fresh@^3.2.1:
     version "3.3.0"
@@ -2433,14 +2300,14 @@ Lockfile:
     dependencies:
       has-bigints "^1.0.1"
   
-  is-boolean-object@^1.0.1, is-boolean-object@^1.1.0:
+  is-boolean-object@^1.1.0:
     version "1.1.2"
     resolved "https://registry.npmjs.org/is-boolean-object/-/is-boolean-object-1.1.2.tgz"
     dependencies:
       call-bind "^1.0.2"
       has-tostringtag "^1.0.0"
   
-  is-callable@^1.1.4, is-callable@^1.1.5, is-callable@^1.2.7:
+  is-callable@^1.1.4, is-callable@^1.2.7:
     version "1.2.7"
     resolved "https://registry.npmjs.org/is-callable/-/is-callable-1.2.7.tgz"
   
@@ -2492,7 +2359,7 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.npmjs.org/is-potential-custom-element-name/-/is-potential-custom-element-name-1.0.1.tgz"
   
-  is-regex@^1.0.5, is-regex@^1.1.4:
+  is-regex@^1.1.4:
     version "1.1.4"
     resolved "https://registry.npmjs.org/is-regex/-/is-regex-1.1.4.tgz"
     dependencies:
@@ -2514,10 +2381,6 @@ Lockfile:
     resolved "https://registry.npmjs.org/is-string/-/is-string-1.0.7.tgz"
     dependencies:
       has-tostringtag "^1.0.0"
-  
-  is-subset@^0.1.1:
-    version "0.1.1"
-    resolved "https://registry.npmjs.org/is-subset/-/is-subset-0.1.1.tgz"
   
   is-symbol@^1.0.2, is-symbol@^1.0.3:
     version "1.0.4"
@@ -3068,18 +2931,6 @@ Lockfile:
     dependencies:
       p-locate "^5.0.0"
   
-  lodash.escape@^4.0.1:
-    version "4.0.1"
-    resolved "https://registry.npmjs.org/lodash.escape/-/lodash.escape-4.0.1.tgz"
-  
-  lodash.flattendeep@^4.4.0:
-    version "4.4.0"
-    resolved "https://registry.npmjs.org/lodash.flattendeep/-/lodash.flattendeep-4.4.0.tgz"
-  
-  lodash.isequal@^4.5.0:
-    version "4.5.0"
-    resolved "https://registry.npmjs.org/lodash.isequal/-/lodash.isequal-4.5.0.tgz"
-  
   lodash.memoize@4.x:
     version "4.1.2"
     resolved "https://registry.npmjs.org/lodash.memoize/-/lodash.memoize-4.1.2.tgz"
@@ -3178,10 +3029,6 @@ Lockfile:
     version "2.29.4"
     resolved "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
   
-  moo@^0.5.0:
-    version "0.5.2"
-    resolved "https://registry.npmjs.org/moo/-/moo-0.5.2.tgz"
-  
   ms@2.0.0:
     version "2.0.0"
     resolved "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
@@ -3201,15 +3048,6 @@ Lockfile:
   natural-compare@^1.4.0:
     version "1.4.0"
     resolved "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
-  
-  nearley@^2.7.10:
-    version "2.20.1"
-    resolved "https://registry.npmjs.org/nearley/-/nearley-2.20.1.tgz"
-    dependencies:
-      commander "^2.19.0"
-      moo "^0.5.0"
-      railroad-diagrams "^1.0.0"
-      randexp "0.4.6"
   
   node-fetch@2.6.7:
     version "2.6.7"
@@ -3235,12 +3073,6 @@ Lockfile:
     dependencies:
       path-key "^3.0.0"
   
-  nth-check@^2.0.1:
-    version "2.1.1"
-    resolved "https://registry.npmjs.org/nth-check/-/nth-check-2.1.1.tgz"
-    dependencies:
-      boolbase "^1.0.0"
-  
   nwsapi@^2.2.2:
     version "2.2.2"
     resolved "https://registry.npmjs.org/nwsapi/-/nwsapi-2.2.2.tgz"
@@ -3249,22 +3081,15 @@ Lockfile:
     version "4.1.1"
     resolved "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
   
-  object-inspect@^1.12.2, object-inspect@^1.7.0, object-inspect@^1.9.0:
+  object-inspect@^1.12.2, object-inspect@^1.9.0:
     version "1.12.2"
     resolved "https://registry.npmjs.org/object-inspect/-/object-inspect-1.12.2.tgz"
-  
-  object-is@^1.0.2, object-is@^1.1.2:
-    version "1.1.5"
-    resolved "https://registry.npmjs.org/object-is/-/object-is-1.1.5.tgz"
-    dependencies:
-      call-bind "^1.0.2"
-      define-properties "^1.1.3"
   
   object-keys@^1.1.1:
     version "1.1.1"
     resolved "https://registry.npmjs.org/object-keys/-/object-keys-1.1.1.tgz"
   
-  object.assign@^4.1.0, object.assign@^4.1.3, object.assign@^4.1.4:
+  object.assign@^4.1.3, object.assign@^4.1.4:
     version "4.1.4"
     resolved "https://registry.npmjs.org/object.assign/-/object.assign-4.1.4.tgz"
     dependencies:
@@ -3273,7 +3098,7 @@ Lockfile:
       has-symbols "^1.0.3"
       object-keys "^1.1.1"
   
-  object.entries@^1.1.1, object.entries@^1.1.5:
+  object.entries@^1.1.5:
     version "1.1.5"
     resolved "https://registry.npmjs.org/object.entries/-/object.entries-1.1.5.tgz"
     dependencies:
@@ -3281,7 +3106,7 @@ Lockfile:
       define-properties "^1.1.3"
       es-abstract "^1.19.1"
   
-  object.fromentries@^2.0.0, object.fromentries@^2.0.5:
+  object.fromentries@^2.0.5:
     version "2.0.5"
     resolved "https://registry.npmjs.org/object.fromentries/-/object.fromentries-2.0.5.tgz"
     dependencies:
@@ -3296,7 +3121,7 @@ Lockfile:
       define-properties "^1.1.4"
       es-abstract "^1.19.5"
   
-  object.values@^1.1.1, object.values@^1.1.5:
+  object.values@^1.1.5:
     version "1.1.5"
     resolved "https://registry.npmjs.org/object.values/-/object.values-1.1.5.tgz"
     dependencies:
@@ -3385,13 +3210,6 @@ Lockfile:
       json-parse-even-better-errors "^2.3.0"
       lines-and-columns "^1.1.6"
   
-  parse5-htmlparser2-tree-adapter@^7.0.0:
-    version "7.0.0"
-    resolved "https://registry.npmjs.org/parse5-htmlparser2-tree-adapter/-/parse5-htmlparser2-tree-adapter-7.0.0.tgz"
-    dependencies:
-      domhandler "^5.0.2"
-      parse5 "^7.0.0"
-  
   parse5@^7.0.0, parse5@^7.1.1:
     version "7.1.1"
     resolved "https://registry.npmjs.org/parse5/-/parse5-7.1.1.tgz"
@@ -3423,10 +3241,6 @@ Lockfile:
   path-type@^4.0.0:
     version "4.0.0"
     resolved "https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz"
-  
-  performance-now@^2.1.0:
-    version "2.1.0"
-    resolved "https://registry.npmjs.org/performance-now/-/performance-now-2.1.0.tgz"
   
   picocolors@^1.0.0:
     version "1.0.0"
@@ -3515,7 +3329,7 @@ Lockfile:
       kleur "^3.0.3"
       sisteransi "^1.0.5"
   
-  prop-types@^15.6.2, prop-types@^15.7.0, prop-types@^15.8.1:
+  prop-types@^15.6.2, prop-types@^15.8.1:
     version "15.8.1"
     resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
     dependencies:
@@ -3543,23 +3357,6 @@ Lockfile:
     version "1.2.3"
     resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   
-  raf@^3.4.1:
-    version "3.4.1"
-    resolved "https://registry.npmjs.org/raf/-/raf-3.4.1.tgz"
-    dependencies:
-      performance-now "^2.1.0"
-  
-  railroad-diagrams@^1.0.0:
-    version "1.0.0"
-    resolved "https://registry.npmjs.org/railroad-diagrams/-/railroad-diagrams-1.0.0.tgz"
-  
-  randexp@0.4.6:
-    version "0.4.6"
-    resolved "https://registry.npmjs.org/randexp/-/randexp-0.4.6.tgz"
-    dependencies:
-      discontinuous-range "1.0.0"
-      ret "~0.1.10"
-  
   react-dom@^17.0.2:
     version "17.0.2"
     resolved "https://registry.npmjs.org/react-dom/-/react-dom-17.0.2.tgz"
@@ -3574,21 +3371,28 @@ Lockfile:
     dependencies:
       "@babel/runtime" "^7.12.5"
   
-  react-hook-thunk-reducer@^0.3.0:
-    version "0.3.0"
-    resolved "https://registry.yarnpkg.com/react-hook-thunk-reducer/-/react-hook-thunk-reducer-0.3.0.tgz#5f62f9517150a56cb6711a8949d1b3ed00261d21"
-  
-  "react-is@^16.12.0 || ^17.0.0 || ^18.0.0", react-is@^16.13.1, react-is@^16.6.0, react-is@^16.7.0:
+  react-is@^16.13.1, react-is@^16.6.0, react-is@^16.7.0:
     version "16.13.1"
     resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   
-  react-is@^17.0.0, react-is@^17.0.1, react-is@^17.0.2:
+  react-is@^17.0.1:
     version "17.0.2"
     resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   
   react-is@^18.0.0:
     version "18.2.0"
     resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
+  
+  react-redux@^8.0.4:
+    version "8.0.4"
+    resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-8.0.4.tgz#80c31dffa8af9526967c4267022ae1525ff0e36a"
+    dependencies:
+      "@babel/runtime" "^7.12.1"
+      "@types/hoist-non-react-statics" "^3.3.1"
+      "@types/use-sync-external-store" "^0.0.3"
+      hoist-non-react-statics "^3.3.2"
+      react-is "^18.0.0"
+      use-sync-external-store "^1.0.0"
   
   react-refresh@^0.13.0:
     version "0.13.0"
@@ -3621,22 +3425,6 @@ Lockfile:
       tiny-invariant "^1.0.2"
       tiny-warning "^1.0.0"
   
-  react-shallow-renderer@^16.13.1:
-    version "16.15.0"
-    resolved "https://registry.npmjs.org/react-shallow-renderer/-/react-shallow-renderer-16.15.0.tgz"
-    dependencies:
-      object-assign "^4.1.1"
-      react-is "^16.12.0 || ^17.0.0 || ^18.0.0"
-  
-  react-test-renderer@^17.0.0:
-    version "17.0.2"
-    resolved "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-17.0.2.tgz"
-    dependencies:
-      object-assign "^4.1.1"
-      react-is "^17.0.2"
-      react-shallow-renderer "^16.13.1"
-      scheduler "^0.20.2"
-  
   react@^17.0.2:
     version "17.0.2"
     resolved "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
@@ -3663,6 +3451,16 @@ Lockfile:
       indent-string "^4.0.0"
       strip-indent "^3.0.0"
   
+  redux-thunk@^2.4.1:
+    version "2.4.1"
+    resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.4.1.tgz#0dd8042cf47868f4b29699941de03c9301a75714"
+  
+  redux@^4.1.2:
+    version "4.2.0"
+    resolved "https://registry.yarnpkg.com/redux/-/redux-4.2.0.tgz#46f10d6e29b6666df758780437651eeb2b969f13"
+    dependencies:
+      "@babel/runtime" "^7.9.2"
+  
   regenerator-runtime@^0.13.4:
     version "0.13.9"
     resolved "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz"
@@ -3686,6 +3484,10 @@ Lockfile:
   requires-port@^1.0.0:
     version "1.0.0"
     resolved "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz"
+  
+  reselect@^4.1.5:
+    version "4.1.6"
+    resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.1.6.tgz#19ca2d3d0b35373a74dc1c98692cdaffb6602656"
   
   resolve-cwd@^3.0.0:
     version "3.0.0"
@@ -3725,10 +3527,6 @@ Lockfile:
       path-parse "^1.0.7"
       supports-preserve-symlinks-flag "^1.0.0"
   
-  ret@~0.1.10:
-    version "0.1.15"
-    resolved "https://registry.npmjs.org/ret/-/ret-0.1.15.tgz"
-  
   reusify@^1.0.4:
     version "1.0.4"
     resolved "https://registry.npmjs.org/reusify/-/reusify-1.0.4.tgz"
@@ -3744,13 +3542,6 @@ Lockfile:
     resolved "https://registry.npmjs.org/rollup/-/rollup-2.77.3.tgz"
     optionalDependencies:
       fsevents "~2.3.2"
-  
-  rst-selector-parser@^2.2.3:
-    version "2.2.3"
-    resolved "https://registry.npmjs.org/rst-selector-parser/-/rst-selector-parser-2.2.3.tgz"
-    dependencies:
-      lodash.flattendeep "^4.4.0"
-      nearley "^2.7.10"
   
   run-parallel@^1.1.9:
     version "1.2.0"
@@ -3900,14 +3691,6 @@ Lockfile:
       internal-slot "^1.0.3"
       regexp.prototype.flags "^1.4.1"
       side-channel "^1.0.4"
-  
-  string.prototype.trim@^1.2.1:
-    version "1.2.6"
-    resolved "https://registry.npmjs.org/string.prototype.trim/-/string.prototype.trim-1.2.6.tgz"
-    dependencies:
-      call-bind "^1.0.2"
-      define-properties "^1.1.4"
-      es-abstract "^1.19.5"
   
   string.prototype.trimend@^1.0.5:
     version "1.0.5"
@@ -4164,6 +3947,10 @@ Lockfile:
       querystringify "^2.1.1"
       requires-port "^1.0.0"
   
+  use-sync-external-store@^1.0.0:
+    version "1.2.0"
+    resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
+  
   util-deprecate@~1.0.1:
     version "1.0.2"
     resolved "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz"
@@ -4334,7 +4121,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c jest
+  Arguments: -c yarn lint:format && yarn lint:fix 
   Directory: /Users/Julien/Desktop/meilleursagents-frontend-test
   Output:
   

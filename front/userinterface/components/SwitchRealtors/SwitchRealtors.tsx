@@ -6,30 +6,32 @@ import {
   setSelectedRealtorUC,
 } from '../../../domain/usecases/realtors.usecase';
 import { setDefaultSelectedMessageUC } from '../../../domain/usecases/messages.usecase';
-import { useStore, setPage } from '../../../store';
+import { setPage } from '../../../store/reducers';
+import { useAppDispatch, useTypedSelector } from '../../../store/store';
 
 const SwitchRealtors: React.FC = () => {
-  const [state, dispatch] = useStore();
+  const dispatch = useAppDispatch();
+  const state = useTypedSelector((state) => state);
   const navigate = useNavigate();
   const { realtorId } = useParams();
 
   useEffect(() => {
     if (realtorId) {
-      getRealtorsUC(realtorId, dispatch);
+      dispatch(getRealtorsUC(realtorId));
     }
   }, [realtorId]);
 
   useEffect(() => {
     if (realtorId && realtorId !== state.selectedRealtorId) {
-      setSelectedRealtorUC(realtorId, dispatch);
+      dispatch(setSelectedRealtorUC(realtorId));
     }
   }, [realtorId]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     navigate(`/realtors/${value}`);
-    dispatch(setPage(1));
-    setDefaultSelectedMessageUC(value, dispatch);
+    dispatch(setPage());
+    dispatch(setDefaultSelectedMessageUC(value));
   };
 
   return (

@@ -1,14 +1,13 @@
 import React, { Suspense } from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import StoreProvider from './store';
-import { initialState, storeReducers } from './store';
 import Message from './userinterface/pages/Message/Message';
 import GlobalCSS from './services/globalstyles/index';
+import { Provider } from 'react-redux';
 
-function App() {
+function App({ store }) {
   return (
-    <Suspense fallback="loading">
-      <StoreProvider initialState={initialState} reducer={storeReducers}>
+    <Provider store={store}>
+      <Suspense fallback="loading">
         <GlobalCSS />
         <BrowserRouter>
           <Routes>
@@ -22,8 +21,8 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-      </StoreProvider>
-    </Suspense>
+      </Suspense>
+    </Provider>
   );
 }
 

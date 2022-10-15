@@ -33,6 +33,7 @@ export const SMailContainer = styled.div`
 export const SMessageHeader = styled.section`
   padding: 25px 20px 10px 70px;
   background: white;
+  width: 100%;
 
   h3 {
     position: relative;
@@ -84,6 +85,7 @@ export const SMessageBody = styled.div`
   padding: 40px 30px;
   background: white;
   height: calc(100% - 320px);
+  width: 100%;
 
   .date {
     margin-bottom: 50px;

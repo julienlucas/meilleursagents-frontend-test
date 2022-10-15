@@ -1,91 +1,115 @@
 import MessagesGateway from '../../infrastructure/MessagesGateway';
-import { getRealtorsUC } from '../../domain/usecases/realtors.usecase';
+import RealtorsGateway from '../../infrastructure/RealtorsGateway';
 import { Message } from '../entities/message.interface';
-import { setMessages, setMessagesPaginated, setSelectedMessage } from '../../store';
+import { Realtor } from '../entities/realtor.interface';
+import { Store } from '../entities/store.interface';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export async function getMessagesUC(
-  realtorId: string,
-  dispatch: React.Dispatch<any>,
-): Promise<Message> {
-  const messagesGateway = MessagesGateway.getInstance();
+export const getMessagesUC = createAsyncThunk(
+  'messages/fetchMessages',
+  async (realtorId: string): Promise<Message> => {
+    const messagesGateway = MessagesGateway.getInstance();
+    try {
+      const messages = await messagesGateway.getMessages(realtorId);
 
-  try {
-    const messages = await messagesGateway.getMessages(realtorId);
+      return messages;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
+);
 
-    dispatch(setMessages(messages));
-    return messages;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
+export const getMessagesPaginatedUC = createAsyncThunk(
+  'messages/fetchMessagesPaginated',
+  async ({
+    selectedRealtorId,
+    params,
+  }: {
+    selectedRealtorId: string;
+    params: any;
+  }): Promise<Message> => {
+    const messagesGateway = MessagesGateway.getInstance();
+    try {
+      const messages = await messagesGateway.getMessages(selectedRealtorId, params);
 
-export async function getMessagesPaginatedUC(
-  realtorId: string,
-  params: any,
-  dispatch: React.Dispatch<any>,
-): Promise<Message> {
-  const messagesGateway = MessagesGateway.getInstance();
+      return messages;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
+);
 
-  try {
-    const messages = await messagesGateway.getMessages(realtorId, params);
+export const getSelectedMessageUC = createAsyncThunk(
+  'messages/fetchSelectedMessage',
+  async ({
+    selectedRealtorId,
+    messageId,
+  }: {
+    selectedRealtorId: string;
+    messageId: string;
+  }): Promise<Message> => {
+    const messagesGateway = MessagesGateway.getInstance();
+    try {
+      const message = await messagesGateway.getSelectedMessage(
+        selectedRealtorId,
+        messageId,
+      );
 
-    // console.log(messages)
+      return message;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
+);
 
-    dispatch(setMessagesPaginated(messages));
-    return messages;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
+export const setDefaultSelectedMessageUC = createAsyncThunk(
+  'messages/fetchDefaultSelectedMessages',
+  async (realtorId: string): Promise<Message> => {
+    const messagesGateway = MessagesGateway.getInstance();
+    try {
+      const messages = await messagesGateway.getMessages(realtorId);
 
-export async function getSelectedMessageUC(
-  realtorId: string,
-  messageId: string,
-  dispatch: React.Dispatch<any>,
-): Promise<Message> {
-  const messagesGateway = MessagesGateway.getInstance();
+      return messages[0];
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
+);
 
-  try {
-    const message = await messagesGateway.getSelectedMessage(realtorId, messageId);
+export const setMessageReadedUC = createAsyncThunk(
+  'messages/patchMessageReaded',
+  async (
+    { realtorId, messageId }: { realtorId: string; messageId: string },
+    { getState },
+  ): Promise<{
+    messages: Message[];
+    unreadCount: number;
+  }> => {
+    const messagesGateway = MessagesGateway.getInstance();
+    const realtorsGateway = RealtorsGateway.getInstance();
 
-    dispatch(setSelectedMessage(message));
-    return message;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
+    try {
+      await messagesGateway.setMessageReaded(realtorId, messageId);
+      const state: Store | any = getState();
+      const prevMessagesCount = state.messages.length;
 
-export async function setDefaultSelectedMessageUC(
-  realtorId: string,
-  dispatch: React.Dispatch<any>,
-) {
-  try {
-    const messages = await getMessagesUC(realtorId, dispatch);
+      const messages = await messagesGateway.getMessages(
+        realtorId,
+        `&page_size=${prevMessagesCount}`,
+      );
+      const realtors = await realtorsGateway.getRealtors();
+      const unreadCount = realtors.filter(
+        (realtor: Realtor) => realtor.id === Number(realtorId),
+      )[0].unread_messages;
 
-    dispatch(setSelectedMessage(messages[0]));
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
-
-export async function setMessageReadedUC(
-  realtorId: string,
-  messageId: string,
-  dispatch: React.Dispatch<any>
-  ) {
-  const messagesGateway = MessagesGateway.getInstance();
-
-  try {
-    await messagesGateway.setMessageReaded(realtorId, messageId);
-    await getMessagesUC(realtorId, dispatch);
-
-    getRealtorsUC(realtorId, dispatch);
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
+      return { messages, unreadCount };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
+);

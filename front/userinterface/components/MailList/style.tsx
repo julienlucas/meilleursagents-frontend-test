@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { theme } from '../../../services/theme';
-const iconMailOpen = '../../../../assets/icon-mail-open.svg'
-const iconMail = '../../../../assets/icon-mail.svg'
+const iconMailOpen = '../../../../assets/icon-mail-open.svg';
+const iconMail = '../../../../assets/icon-mail.svg';
 const iconPhone = '../../../../assets/icon-phone.svg';
 
 export const SMailList = styled.aside`

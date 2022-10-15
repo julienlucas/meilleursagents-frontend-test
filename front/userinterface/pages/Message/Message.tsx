@@ -12,29 +12,31 @@ import {
 } from './style';
 import Layout from '../../components/Layout/Layout';
 import {
+  getMessagesUC,
   getSelectedMessageUC,
   setMessageReadedUC,
   setDefaultSelectedMessageUC,
 } from '../../../domain/usecases/messages.usecase';
-import { useStore } from '../../../store';
+import { useAppDispatch, useTypedSelector } from '../../../store/store';
 
 const Message: React.FC = () => {
-  const [state, dispatch] = useStore();
-  const [open, setOpen] = useState<boolean>(false);
-  const [showCloseButton, setShowCloseButton] = useState<boolean>(true);
-  const width = useWindowSize();
-  const { selectedMessage } = state;
-  const { realtorId, messageId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const width = useWindowSize();
+  const dispatch = useAppDispatch();
+  const state = useTypedSelector((state) => state);
+  const { selectedMessage, selectedRealtorId } = state;
+  const [open, setOpen] = useState<boolean>(false);
+  const [showCloseButton, setShowCloseButton] = useState<boolean>(true);
+  const { realtorId, messageId } = useParams();
 
   useEffect(() => {
-    if (messageId) {
-      getSelectedMessageUC(state.selectedRealtorId, messageId, dispatch);
-      setMessageReadedUC(state.selectedRealtorId, messageId, dispatch);
+    if (messageId && realtorId) {
+      dispatch(getSelectedMessageUC({ selectedRealtorId, messageId }));
+      dispatch(setMessageReadedUC({ realtorId, messageId }));
     }
     if (realtorId && !messageId) {
-      setDefaultSelectedMessageUC(realtorId, dispatch);
+      dispatch(setDefaultSelectedMessageUC(realtorId));
     }
   }, [realtorId, messageId]);
 
