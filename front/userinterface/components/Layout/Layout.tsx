@@ -8,7 +8,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <SLayout>
+    <SLayout data-testid="layout">
       <Header />
       {children}
     </SLayout>

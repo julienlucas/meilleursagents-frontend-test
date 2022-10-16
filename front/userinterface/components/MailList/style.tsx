@@ -50,7 +50,7 @@ export const SSms = styled.div`
       `}
   }
 
-  &:hover {
+  &:hover, &.active {
     background-color: ${theme.lightGrey};
   }
 
@@ -95,7 +95,7 @@ export const SMail = styled.div`
       background-position: 10px 23px;
     `}
 
-  &:hover {
+  &:hover, &.active {
     background-color: ${theme.lightGrey};
   }
 

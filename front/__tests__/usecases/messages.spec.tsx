@@ -54,7 +54,7 @@ var mock2ndMessage = {
   },
   "date": "2022-10-06T12:22:10.209061",
   "id": 10112,
-  "read": true,
+  "read": false,
   "subject": "Appel #10112",
   "type": "phone"
 }

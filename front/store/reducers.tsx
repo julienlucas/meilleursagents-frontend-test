@@ -6,6 +6,7 @@ import {
   setDefaultSelectedMessageUC,
   getMessagesPaginatedUC,
   setMessageReadedUC,
+  setSelectedMessageKeyPressUC
 } from '../domain/usecases/messages.usecase';
 import { getRealtorsUC, setSelectedRealtorUC } from '../domain/usecases/realtors.usecase';
 
@@ -69,6 +70,10 @@ const slice = createSlice({
       })
       .addCase(setSelectedRealtorUC.fulfilled, (state, { payload }) => {
         state.selectedRealtorId = payload;
+      })
+      .addCase(setSelectedMessageKeyPressUC.fulfilled, (state, { payload }) => {
+        state.selectedMessage = payload;
+        state.selectedMessageId = payload.id.toString();
       });
   },
 });

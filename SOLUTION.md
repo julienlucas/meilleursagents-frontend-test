@@ -28,12 +28,13 @@ Redux (Redux Toolkit) advanced.
 
 Answer:
 
-We could use Redux Saga I think (but never used). So it can allow to update the state directly on async redux functions. This would allow to remove the small part of business logic in useeffects dependencies.
+We could use Redux Saga. Redux saga allow to better manage sideeffects in async functions and make testing easier. But I never used it.
+
+It need 1-2 functionnal tests to test not only the store but the ui.
 
 ---
 
 ### Have you met issues that you left on the side to finish in time and how would you solve them?
 
 Answer:
-- ARIA. We could add tabIndex to navigate between retailor and in the message list.
-- I could add 2-3 functionals tests to be 100% sure what we have on the store is on the ui (I check only the store here, but it allow my tests to perform just in 3 seconds).
+I could add 1-2 functionals more tests to be 100% sure that what we have on the store is on the ui (I check only the store here, it allow my tests to perform in just in 2 seconds).
