@@ -8,9 +8,9 @@ Answer: 5 days
 
 Answer:
 
-I have used Clean architecture. For great isolation of useCases, interface, infrastructure. Clean archi allow also easier testing and easier changes on the code.
+I have used Clean architecture. For great isolation of useCases, interface, infrastructure. Clean archi allow also easier testing and easier future changes on the code.
 
-It's also very interesting to use redux toolkit. For use async reducers, syntax is short, and the possibility to test the store with Integration Tests (useContext react store is not testable).
+It's also very interesting to use redux toolkit. For async reducers use, syntax is short, and there's the possibility to test the store with Integration Tests. Clean archi & redux async makes a great combinaison for usecases testing.
 
 We use the usecases functions in components, and the reducer with new state is automaticly triggered.
 
@@ -36,4 +36,4 @@ We could use Redux Saga I think (but never used). So it can allow to update the 
 
 Answer:
 - ARIA. We could add tabIndex to navigate between retailor and in the message list.
-- Could add 2-3 functionals tests to be 100% sure what we have on the store is on the ui (I check only the store so my tests take just 3 seconds).
+- I could add 2-3 functionals tests to be 100% sure what we have on the store is on the ui (I check only the store here, but it allow my tests to perform just in 3 seconds).
