@@ -85,7 +85,6 @@ export const SMessageBody = styled.div`
   padding: 40px 30px;
   background: white;
   height: calc(100% - 320px);
-  width: 100%;
 
   .date {
     margin-bottom: 50px;
@@ -100,6 +99,8 @@ export const SCloseButton = styled.button`
   right: 20px;
   border: none;
   font-size: 20px;
+  width: 30px;
+  height: 30px;
   background: white;
   cursor: pointer;
 `;

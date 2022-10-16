@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import {
   getMessagesUC,
   getMessagesPaginatedUC,
@@ -35,13 +36,13 @@ const MailList = () => {
   };
 
   return (
-    <SMailList>
+    <SMailList data-testid="maillist">
       <>
         {state?.messages?.map((message) => {
           if (message.type === 'email') {
             return (
               <SMail
-                key={message.id}
+                key={uuidv4()}
                 readStatus={message.read}
                 onClick={() => showMessageDetails(message)}
               >
@@ -57,7 +58,7 @@ const MailList = () => {
           if (message.type === 'sms' || message.type === 'phone') {
             return (
               <SSms
-                key={message.id}
+                key={uuidv4()}
                 readStatus={message.read}
                 onClick={() =>
                   navigate(`/realtors/${state.selectedRealtorId}/messages/${message.id}`)

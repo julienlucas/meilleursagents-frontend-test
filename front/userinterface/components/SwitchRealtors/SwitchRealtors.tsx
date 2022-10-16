@@ -1,12 +1,13 @@
 import React, { useEffect, ChangeEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import { SSwitchRealtors } from './style';
 import {
   getRealtorsUC,
   setSelectedRealtorUC,
 } from '../../../domain/usecases/realtors.usecase';
 import { setDefaultSelectedMessageUC } from '../../../domain/usecases/messages.usecase';
-import { setPage } from '../../../store/reducers';
+import { resetPage } from '../../../store/reducers';
 import { useAppDispatch, useTypedSelector } from '../../../store/store';
 
 const SwitchRealtors: React.FC = () => {
@@ -29,15 +30,19 @@ const SwitchRealtors: React.FC = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
+    dispatch(resetPage());
     navigate(`/realtors/${value}`);
-    dispatch(setPage());
     dispatch(setDefaultSelectedMessageUC(value));
   };
 
   return (
-    <SSwitchRealtors onChange={handleChange} value={state.selectedRealtorId}>
+    <SSwitchRealtors
+      onChange={handleChange}
+      value={state.selectedRealtorId}
+      data-testid="select-switch-realtors"
+    >
       {state.realtors?.map((realtor) => (
-        <option key={realtor.id} value={realtor.id}>
+        <option key={uuidv4()} value={realtor.id} data-testid={`option-switch-realtor-${realtor.id}`}>
           {realtor.name}
         </option>
       ))}

@@ -1,5 +1,5 @@
 import { useRef, useEffect, useCallback } from 'react';
-import { useTypedSelector, useAppDispatch } from '../../store/store';
+import { useAppDispatch } from '../../store/store';
 import { setPage } from '../../store/reducers';
 
 const useInfiniteScroll = () => {

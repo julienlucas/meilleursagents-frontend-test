@@ -77,8 +77,8 @@ const Message: React.FC = () => {
             <SMailContainer>
               <SMessageHeader>
                 {showCloseButton && (
-                  <SCloseButton className="close" onClick={() => setOpen(false)}>
-                    X
+                  <SCloseButton onClick={() => setOpen(false)}>
+                    <span>X</span>
                   </SCloseButton>
                 )}
 

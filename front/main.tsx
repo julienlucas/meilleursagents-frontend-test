@@ -8,14 +8,12 @@ export const store = configureStore({
   reducer: reducers,
 });
 
-const rootEl = document.getElementById('root');
-
 const render = () =>
   ReactDOM.render(
     <React.StrictMode>
       <App store={store} />
     </React.StrictMode>,
-    rootEl,
+    document.getElementById('root'),
   );
 
 render();

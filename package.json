@@ -19,12 +19,12 @@
     "react-redux": "^8.0.4",
     "react-router": "^5.2.1",
     "react-router-dom": "^6.4.2",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "12.1.2",
-    "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.1.2",
     "@types/node": "^18.8.4",
     "@types/react": "^17.0.38",

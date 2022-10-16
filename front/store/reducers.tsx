@@ -30,6 +30,16 @@ const slice = createSlice({
       };
       return state;
     },
+    resetPage(state) {
+      state = {
+        ...state,
+        page: 1,
+      };
+      return state;
+    },
+    resetStore() {
+      return initialState
+    }
   },
   extraReducers(builder) {
     builder
@@ -49,13 +59,8 @@ const slice = createSlice({
         state.selectedMessageId = payload.id.toString();
       })
       .addCase(setMessageReadedUC.fulfilled, (state, { payload }) => {
-        const { messages, unreadCount } = payload;
-
-        // console.log(state.messages)
-        console.log(payload.messages);
-        console.log(messages);
-        state.messages = [...messages];
-        state.unreadCount = unreadCount;
+        state.messages = payload.messages;
+        state.unreadCount = payload.unreadCount;
       })
       .addCase(getRealtorsUC.fulfilled, (state, { payload }) => {
         const { realtors, unreadCount } = payload;
@@ -68,6 +73,7 @@ const slice = createSlice({
   },
 });
 
-export const { setPage } = slice.actions;
+export const { setPage, resetPage, resetStore } = slice.actions;
 
 export default slice.reducer;
+

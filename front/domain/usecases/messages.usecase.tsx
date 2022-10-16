@@ -66,7 +66,7 @@ export const getSelectedMessageUC = createAsyncThunk(
 );
 
 export const setDefaultSelectedMessageUC = createAsyncThunk(
-  'messages/fetchDefaultSelectedMessages',
+  'messages/fetchDefaultSelectedMessage',
   async (realtorId: string): Promise<Message> => {
     const messagesGateway = MessagesGateway.getInstance();
     try {
@@ -81,9 +81,9 @@ export const setDefaultSelectedMessageUC = createAsyncThunk(
 );
 
 export const setMessageReadedUC = createAsyncThunk(
-  'messages/patchMessageReaded',
+  'messages/postMessageAsReaded',
   async (
-    { realtorId, messageId }: { realtorId: string; messageId: string },
+    { realtorId, messageId }: { realtorId: string, messageId: string },
     { getState },
   ): Promise<{
     messages: Message[];
@@ -93,14 +93,15 @@ export const setMessageReadedUC = createAsyncThunk(
     const realtorsGateway = RealtorsGateway.getInstance();
 
     try {
-      await messagesGateway.setMessageReaded(realtorId, messageId);
       const state: Store | any = getState();
-      const prevMessagesCount = state.messages.length;
+      await messagesGateway.setMessageReaded(realtorId, messageId);
 
-      const messages = await messagesGateway.getMessages(
-        realtorId,
-        `&page_size=${prevMessagesCount}`,
-      );
+      const prevMessagesCount = state.messages.length;
+      let messages;
+      if (prevMessagesCount > 0) {
+        messages = await messagesGateway.getMessages(realtorId,`&page_size=${prevMessagesCount}`);
+      }
+
       const realtors = await realtorsGateway.getRealtors();
       const unreadCount = realtors.filter(
         (realtor: Realtor) => realtor.id === Number(realtorId),
