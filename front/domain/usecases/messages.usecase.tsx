@@ -119,16 +119,17 @@ export const setSelectedMessageKeyPressUC = createAsyncThunk(
   'messages/setSelectedMessageWhenKeyPress',
   async (key: string, { getState, dispatch }) => {
     const state: Store | any = getState();
+    const realtorId = state.selectedRealtorId.toString();
     const getMessageIndex = state.messages.findIndex(message => message.id === Number(state.selectedMessageId));
 
     if(key === "ArrowUp") {
       const messageId = state.messages[getMessageIndex - 1].id
-      dispatch(setMessageReadedUC({realtorId: "101", messageId}))
+      dispatch(setMessageReadedUC({realtorId, messageId}))
 
       return state.messages[getMessageIndex - 1]
     } else if(key === "ArrowDown") {
       const messageId = state.messages[getMessageIndex + 1].id
-      dispatch(setMessageReadedUC({realtorId: "101", messageId}))
+      dispatch(setMessageReadedUC({realtorId, messageId}))
 
       return state.messages[getMessageIndex + 1]
     }

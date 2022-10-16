@@ -12,7 +12,6 @@ import {
 } from './style';
 import Layout from '../../components/Layout/Layout';
 import {
-  getMessagesUC,
   getSelectedMessageUC,
   setMessageReadedUC,
   setDefaultSelectedMessageUC,
