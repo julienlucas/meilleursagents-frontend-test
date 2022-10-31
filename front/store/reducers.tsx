@@ -6,7 +6,7 @@ import {
   setDefaultSelectedMessageUC,
   getMessagesPaginatedUC,
   setMessageReadedUC,
-  setSelectedMessageKeyPressUC
+  setSelectedMessageKeyPressUC,
 } from '../domain/usecases/messages.usecase';
 import { getRealtorsUC, setSelectedRealtorUC } from '../domain/usecases/realtors.usecase';
 
@@ -39,8 +39,8 @@ const slice = createSlice({
       return state;
     },
     resetStore() {
-      return initialState
-    }
+      return initialState;
+    },
   },
   extraReducers(builder) {
     builder
@@ -81,4 +81,3 @@ const slice = createSlice({
 export const { setPage, resetPage, resetStore } = slice.actions;
 
 export default slice.reducer;
-

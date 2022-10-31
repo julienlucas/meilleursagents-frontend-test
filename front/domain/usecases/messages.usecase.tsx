@@ -83,7 +83,7 @@ export const setDefaultSelectedMessageUC = createAsyncThunk(
 export const setMessageReadedUC = createAsyncThunk(
   'messages/postMessageAsReaded',
   async (
-    { realtorId, messageId }: { realtorId: string, messageId: string },
+    { realtorId, messageId }: { realtorId: string; messageId: string },
     { getState },
   ): Promise<{
     messages: Message[];
@@ -99,7 +99,10 @@ export const setMessageReadedUC = createAsyncThunk(
       const prevMessagesCount = state.messages.length;
       let messages;
       if (prevMessagesCount > 0) {
-        messages = await messagesGateway.getMessages(realtorId,`&page_size=${prevMessagesCount}`);
+        messages = await messagesGateway.getMessages(
+          realtorId,
+          `&page_size=${prevMessagesCount}`,
+        );
       }
 
       const realtors = await realtorsGateway.getRealtors();
@@ -120,18 +123,20 @@ export const setSelectedMessageKeyPressUC = createAsyncThunk(
   async (key: string, { getState, dispatch }) => {
     const state: Store | any = getState();
     const realtorId = state.selectedRealtorId.toString();
-    const getMessageIndex = state.messages.findIndex(message => message.id === Number(state.selectedMessageId));
+    const getMessageIndex = state.messages.findIndex(
+      (message) => message.id === Number(state.selectedMessageId),
+    );
 
-    if(key === "ArrowUp") {
-      const messageId = state.messages[getMessageIndex - 1].id
-      dispatch(setMessageReadedUC({realtorId, messageId}))
+    if (key === 'ArrowUp') {
+      const messageId = state.messages[getMessageIndex - 1].id;
+      dispatch(setMessageReadedUC({ realtorId, messageId }));
 
-      return state.messages[getMessageIndex - 1]
-    } else if(key === "ArrowDown") {
-      const messageId = state.messages[getMessageIndex + 1].id
-      dispatch(setMessageReadedUC({realtorId, messageId}))
+      return state.messages[getMessageIndex - 1];
+    } else if (key === 'ArrowDown') {
+      const messageId = state.messages[getMessageIndex + 1].id;
+      dispatch(setMessageReadedUC({ realtorId, messageId }));
 
-      return state.messages[getMessageIndex + 1]
+      return state.messages[getMessageIndex + 1];
     }
   },
 );

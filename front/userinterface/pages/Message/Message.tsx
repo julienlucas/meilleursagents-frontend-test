@@ -39,7 +39,6 @@ const Message: React.FC = () => {
     }
   }, [realtorId, messageId]);
 
-
   useEffect(() => {
     const setDefaultMailURL = () => {
       if (!messageId && state.messages.length > 0) {
@@ -49,7 +48,7 @@ const Message: React.FC = () => {
       }
     };
 
-   if (state.selectedMessageId && messageId !== state.selectedMessageId) {
+    if (state.selectedMessageId && messageId !== state.selectedMessageId) {
       navigate(
         `/realtors/${state.selectedRealtorId}/messages/${state.selectedMessageId}`,
       );

@@ -42,7 +42,11 @@ const SwitchRealtors: React.FC = () => {
       data-testid="select-switch-realtors"
     >
       {state.realtors?.map((realtor) => (
-        <option key={uuidv4()} value={realtor.id} data-testid={`option-switch-realtor-${realtor.id}`}>
+        <option
+          key={uuidv4()}
+          value={realtor.id}
+          data-testid={`option-switch-realtor-${realtor.id}`}
+        >
           {realtor.name}
         </option>
       ))}

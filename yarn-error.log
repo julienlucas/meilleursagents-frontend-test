@@ -1,14 +1,14 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn test
+  /Users/Julien/.nvm/versions/node/v16.17.1/bin/node /usr/local/bin/yarn lint:fix
 
 PATH: 
-  /Users/Julien/.poetry/bin:/Users/Julien/.pyenv/shims:/usr/local/bin:/Users/Julien/.pyenv/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/opt/ImageMagick/bin
+  /Users/Julien/Desktop/meilleursagents-frontend-test/node_modules/.bin:/Users/Julien/Desktop/node_modules/.bin:/Users/Julien/node_modules/.bin:/Users/node_modules/.bin:/node_modules/.bin:/Users/Julien/.nvm/versions/node/v16.17.1/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/Julien/.nvm/versions/node/v16.17.1/bin:/Users/Julien/.poetry/bin:/Users/Julien/.pyenv/shims:/usr/local/bin:/Users/Julien/.pyenv/bin:/Library/Frameworks/Python.framework/Versions/3.10/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/opt/ImageMagick/bin
 
 Yarn version: 
   1.5.1
 
 Node version: 
-  18.10.0
+  16.17.1
 
 Platform: 
   darwin arm64
@@ -4357,9 +4357,9 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 1
+  Exit code: 2
   Command: sh
-  Arguments: -c jest
+  Arguments: -c eslint ./src --ext .jsx,.js,.ts,.tsx --quiet --fix --ignore-path ./.gitignore
   Directory: /Users/Julien/Desktop/meilleursagents-frontend-test
   Output:
   
@@ -4367,5 +4367,5 @@ Trace:
       at new ProcessTermError (/usr/local/lib/node_modules/yarn/lib/cli.js:226:113)
       at ChildProcess.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:30281:17)
       at ChildProcess.emit (node:events:513:28)
-      at maybeClose (node:internal/child_process:1091:16)
-      at ChildProcess._handle.onexit (node:internal/child_process:302:5)
+      at maybeClose (node:internal/child_process:1093:16)
+      at Process.ChildProcess._handle.onexit (node:internal/child_process:302:5)

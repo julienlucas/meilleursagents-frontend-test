@@ -50,7 +50,8 @@ export const SSms = styled.div`
       `}
   }
 
-  &:hover, &.active {
+  &:hover,
+  &.active {
     background-color: ${theme.lightGrey};
   }
 

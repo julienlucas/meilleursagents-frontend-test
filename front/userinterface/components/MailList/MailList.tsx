@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {
   getMessagesUC,
   getMessagesPaginatedUC,
-  setSelectedMessageKeyPressUC
+  setSelectedMessageKeyPressUC,
 } from '../../../domain/usecases/messages.usecase';
 import { useAppDispatch, useTypedSelector } from '../../../store/store';
 import { getFomatedDate } from '../../../services/helpers';
@@ -37,16 +37,16 @@ const MailList = () => {
   };
 
   const handleMessageSelected = (e): void => {
-    if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
       dispatch(setSelectedMessageKeyPressUC(e.key));
     }
   };
 
   useEffect(() => {
-    document.addEventListener("keydown", handleMessageSelected, false);
+    document.addEventListener('keydown', handleMessageSelected, false);
 
     return () => {
-      document.removeEventListener("keydown", handleMessageSelected, false);
+      document.removeEventListener('keydown', handleMessageSelected, false);
     };
   }, []);
 
@@ -60,7 +60,7 @@ const MailList = () => {
                 key={uuidv4()}
                 readStatus={message.read}
                 onClick={() => showMessageDetails(message)}
-                className={message.id.toString() === state.selectedMessageId && "active" }
+                className={message.id.toString() === state.selectedMessageId && 'active'}
               >
                 <h3>
                   {message.contact?.firstname} {message.contact?.lastname}
@@ -79,7 +79,7 @@ const MailList = () => {
                 onClick={() =>
                   navigate(`/realtors/${state.selectedRealtorId}/messages/${message.id}`)
                 }
-                className={message.id.toString() === state.selectedMessageId && "active" }
+                className={message.id.toString() === state.selectedMessageId && 'active'}
               >
                 <h3>
                   {message.contact?.firstname} {message.contact?.lastname}
